@@ -5,6 +5,14 @@ import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 
+// Preload all portfolio reveal textures so page transitions and theme changes are instantaneous
+useTexture.preload([
+  "/images/portfolio/night-p1.png",
+  "/images/portfolio/day-p2.webp",
+  "/images/portfolio/night2.png",
+  "/images/portfolio/day1.webp",
+]);
+
 // Intercept Three.js internal warnings to resolve THREE.Clock deprecation notice triggered by dependencies
 if (
   typeof (THREE as unknown as { setConsoleFunction?: unknown })
@@ -139,8 +147,6 @@ void main() {
 
     gl_FragColor = mix(front, back, smokeMask);
   }
-
-
 `;
 
 interface FluidRevealProps {
@@ -166,8 +172,15 @@ const FluidDistortionEffect = ({ frontImage, backImage }: FluidRevealProps) => {
     };
   }, [timer]);
 
-  const canvas = useMemo(() => document.createElement("canvas"), []);
+  const canvas = useMemo(() => {
+    const c = document.createElement("canvas");
+    c.width = 256;
+    c.height = 256;
+    return c;
+  }, []);
+
   const ctx = useMemo(() => canvas.getContext("2d"), [canvas]);
+
   const texture = useMemo(() => {
     const t = new THREE.CanvasTexture(canvas);
     t.minFilter = THREE.LinearFilter;
@@ -184,16 +197,30 @@ const FluidDistortionEffect = ({ frontImage, backImage }: FluidRevealProps) => {
   >([]);
 
   useEffect(() => {
-    canvas.width = 256;
-    canvas.height = 256;
     if (ctx) {
       ctx.fillStyle = "black";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+      texture.needsUpdate = true;
     }
-  }, [canvas, ctx]);
+  }, [canvas, ctx, texture]);
+
+  // Clean up canvas texture on unmount
+  useEffect(() => {
+    return () => {
+      texture.dispose();
+    };
+  }, [texture]);
+
+  // Ensure Three.js textures are re-uploaded to the WebGL context upon mount / route return
+  useEffect(() => {
+    if (front) front.needsUpdate = true;
+    if (back) back.needsUpdate = true;
+    if (texture) texture.needsUpdate = true;
+  }, [front, back, texture, gl]);
 
   // Helper to convert screen client coordinates to canvas pixel space (0 to 256)
   const getCanvasCoords = (clientX: number, clientY: number) => {
+    if (!gl.domElement) return null;
     const rect = gl.domElement.getBoundingClientRect();
     if (rect.width === 0 || rect.height === 0) return null;
     const nx = (clientX - rect.left) / rect.width;
@@ -230,7 +257,10 @@ const FluidDistortionEffect = ({ frontImage, backImage }: FluidRevealProps) => {
 
     const handlePointerMove = (e: PointerEvent) => {
       const coords = getCanvasCoords(e.clientX, e.clientY);
-      if (!coords) return;
+      if (!coords) {
+        lastPositions.current.delete(e.pointerId);
+        return;
+      }
 
       const isTouch = e.pointerType === "touch" || e.pointerType === "pen";
       // Touch requires active contact; mouse works on hover or drag
@@ -281,7 +311,10 @@ const FluidDistortionEffect = ({ frontImage, backImage }: FluidRevealProps) => {
       for (let i = 0; i < e.touches.length; i++) {
         const touch = e.touches[i];
         const coords = getCanvasCoords(touch.clientX, touch.clientY);
-        if (!coords) continue;
+        if (!coords) {
+          lastPositions.current.delete(touch.identifier);
+          continue;
+        }
         const prev = lastPositions.current.get(touch.identifier);
         if (prev) {
           const dist = Math.hypot(coords.x - prev.x, coords.y - prev.y);
@@ -382,6 +415,7 @@ const FluidDistortionEffect = ({ frontImage, backImage }: FluidRevealProps) => {
     if (materialRef.current) {
       materialRef.current.uniforms.uTexFront.value = front;
       materialRef.current.uniforms.uTexBack.value = back;
+      materialRef.current.uniforms.uDisp.value = texture;
       const fImg = front?.image as HTMLImageElement | undefined;
       const bImg = back?.image as HTMLImageElement | undefined;
       materialRef.current.uniforms.uFrontRes.value.set(
@@ -392,8 +426,9 @@ const FluidDistortionEffect = ({ frontImage, backImage }: FluidRevealProps) => {
         bImg?.naturalWidth || bImg?.width || 1,
         bImg?.naturalHeight || bImg?.height || 1,
       );
+      materialRef.current.needsUpdate = true;
     }
-  }, [front, back]);
+  }, [front, back, texture]);
 
   useFrame(() => {
     // 1. Update Timer and shader uniforms
@@ -440,7 +475,7 @@ const FluidDistortionEffect = ({ frontImage, backImage }: FluidRevealProps) => {
   });
 
   return (
-    <mesh ref={mesh}>
+    <mesh ref={mesh} dispose={null}>
       <planeGeometry args={[viewport.width, viewport.height]} />
       <shaderMaterial
         ref={materialRef}

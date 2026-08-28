@@ -18,7 +18,7 @@ const FrontLayerContent = () => {
       <div className="absolute h-40 w-full  bg-linear-to-t from-background to-transparent bottom-0 "></div>
       <div className="hidden md:block absolute h-full w-60  bg-linear-to-r from-background  to-transparent -left-1 "></div>
       <div className="hidden md:block absolute h-full w-60  bg-linear-to-l from-background to-transparent -right-1  "></div>
-      <div className="absolute pt-15 md:pt-25 md:px-20 px-5 space-y-4">
+      <div className="absolute pt-15 md:pt-20 md:px-20 px-5 space-y-4">
         <h2 className=" text-4xl font-semibold font-mono ">
           Frontend Developer
         </h2>

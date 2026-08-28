@@ -1,0 +1,45 @@
+EXPERIENCE
+Freelancer
+Self Employed
+• Developed project proposals for diverse client needs across various industries.
+• Exposure to AI tools, building side projects.
+• Completed 4 -  5 projects with different clients and industries
+Front-End Developer
+Ticvic Technologies
+• Redesigned and developed the company website frontend using Next.js.
+• Achieved high SEO scores and improved overall page speed.
+• Helped increase user traffic and engagement for marketing campaigns.
+• Built a feedback and survey system with role-based access for admins, leads, and employees.
+• Developed team-based surveys and dynamic forms.
+• Displayed reports and analytics using custom dashboards, web sockets for real time data.
+June 2025 - Present Chennai
+,
+November 2022 - May 2025 Chennai, In
+,
+• As the frontend developer, utilized Next.js and Socket.io to implement a real time dashboard, ticketing system, and user roles, enhancing test
+outcome tracking and improving product quality.
+• Created a live cyber threat map as a landing page project.
+• Used Event source to update threat locations in realtime.
+Trainee - Front-End Development
+Ticvic Technologies
+June 2022 - November 2022 Chennai, In
+,
+• Learned HTML, CSS, and JavaScript from the ground up by building static web pages and interactive components.
+• Focused on clean code structure and understanding core web development principles.
+• Built responsive websites using Tailwind CSS with a mobile-first approach.
+• Gained experience in creating reusable components and implementing layout techniques.
+• Ensured cross-browser compatibility across major platforms.
+• Developed web applications using React, focusing on components, hooks, and state management.
+• Gained hands-on experience with state updates, effects, and cleanup processes.
+EDUCATION
+Bachelor of Engineering in Electronics and Communication
+Saveetha Engineering College • Chennai • 2022
+SKILLS
+JavaScript, TypeScript
+React.js, Next.js, Vite, Tailwind, Ant Design, Hero UI, Shadcn/ui, Socket.io, Framer Motion, GSAP, AI tools
+Redux Toolkit, Redux, Zod
+Jest, Cypress
+Google Search Console, Bing Webmaster
+Git
+Docker
+Jir

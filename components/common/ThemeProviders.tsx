@@ -6,7 +6,7 @@ type ProvidersProps = {
   children: ReactNode;
 };
 
-export function Providers({ children }: ProvidersProps) {
+export function ThemeProviders({ children }: ProvidersProps) {
   return (
     <NextThemesProvider
       attribute="class"

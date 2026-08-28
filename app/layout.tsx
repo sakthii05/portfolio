@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif, Urbanist } from "next/font/google";
 import "./globals.css";
-import { Providers } from "@/components/common/Providers";
+import { ThemeProviders } from "@/components/common/ThemeProviders";
 import PageTransitionWrapper from "@/components/common/PageTransitionWrapper";
 import Layout from "@/components/common/Layout";
 
@@ -29,11 +29,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Providers>
+        <ThemeProviders>
           <PageTransitionWrapper>
             <Layout>{children}</Layout>
           </PageTransitionWrapper>
-        </Providers>
+        </ThemeProviders>
       </body>
     </html>
   );

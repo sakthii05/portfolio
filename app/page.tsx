@@ -1,16 +1,29 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
 import FluidDistortionEffect from "@/components/home/FluidDistortionEffect";
-import { Suspense } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import FrontLayerContent from "@/components/home/FrontLayerContent";
 
 const Home = () => {
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted ? resolvedTheme === "dark" : false;
+  const frontImage = isDark
+    ? "/images/portfolio/night-p1.png"
+    : "/images/portfolio/day-p2.webp";
+  const backImage = isDark
+    ? "/images/portfolio/night2.png"
+    : "/images/portfolio/day1.webp";
 
   return (
     <>
-     {/* front layer content */}
+      {/* front layer content */}
       <FrontLayerContent />
       {/* image reveal animation */}
       <div
@@ -20,31 +33,25 @@ const Home = () => {
           z-0
           flex justify-center items-center
           pointer-events-none
+          bg-background
         "
       >
-        <div className="relative max-w-350 h-full w-full">
+        <div className="relative max-w-350 h-full w-full bg-background overflow-hidden">
           <Canvas
             camera={{
               position: [0, 0, 1],
             }}
             gl={{
               antialias: true,
-              alpha: false,
+              alpha: true,
+              powerPreference: "high-performance",
             }}
             dpr={[1, 2]}
           >
             <Suspense fallback={null}>
               <FluidDistortionEffect
-                frontImage={
-                  resolvedTheme === "dark"
-                    ? "/images/portfolio/night-p1.png"
-                    : "/images/portfolio/day-p2.webp"
-                }
-                backImage={
-                  resolvedTheme === "dark"
-                    ? "/images/portfolio/night2.png"
-                    : "/images/portfolio/day1.webp"
-                }
+                frontImage={frontImage}
+                backImage={backImage}
               />
             </Suspense>
           </Canvas>
@@ -54,3 +61,4 @@ const Home = () => {
   );
 };
 export default Home;
+
