@@ -2,10 +2,12 @@
 import React from "react";
 import Link from "next/link";
 import { LuHouse } from "react-icons/lu";
-import { PiSuitcaseSimpleLight } from "react-icons/pi";
+import { PiOfficeChair, PiSuitcaseSimpleLight } from "react-icons/pi";
 import { BsFolder } from "react-icons/bs";
 import { RiGeminiLine } from "react-icons/ri";
 import { ThemeToggle } from "./ThemeToggle";
+import ToolTip from "./ToolTip";
+import { usePathname } from "next/navigation";
 
 type NavLinkItem = {
   href: string;
@@ -26,7 +28,7 @@ const navItems: NavItem[] = [
   { type: "divider" },
   {
     href: "/experience",
-    icon: PiSuitcaseSimpleLight,
+    icon: PiOfficeChair,
     label: "Experience",
   },
   {
@@ -43,6 +45,8 @@ const navItems: NavItem[] = [
 ];
 
 const FloatingNavbar = () => {
+  const pathname = usePathname();
+  console.log(pathname);
   return (
     <div className="fixed inset-x-0 bottom-5 z-70 pointer-events-none flex justify-center">
       <nav
@@ -67,20 +71,7 @@ const FloatingNavbar = () => {
               className="relative group flex items-center justify-center"
             >
               {/* Smooth Animated Tooltip */}
-              <div
-                className="absolute -top-14 left-1/2 -translate-x-1/2 pointer-events-none z-50
-                opacity-0 translate-y-2 scale-90 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100
-                transition-all duration-200 ease-out flex flex-col items-center"
-              >
-                <div
-                  className="rounded-full bg-background px-3 py-2 font-semibold tracking-wider 
-                text-foreground shadow-lg  backdrop-blur-md whitespace-nowrap font-mono"
-                >
-                  {linkItem.label}
-                </div>
-                <div className="-mt-1 h-2 w-2 rotate-45 bg-background" />
-              </div>
-
+              <ToolTip>{linkItem.label}</ToolTip>
               {/* Nav Link Item */}
               <Link
                 href={linkItem.href}
@@ -89,7 +80,15 @@ const FloatingNavbar = () => {
                 className="flex size-10 hover:size-12 items-center justify-center rounded-full text-muted-foreground transition-all duration-200 ease-out hover:bg-muted/80 hover:text-foreground active:scale-95"
                 aria-label={linkItem.label}
               >
-                <Icon className="size-5 transition-transform duration-200 ease-out group-hover:scale-125" />
+                <Icon
+                  className={`size-5
+                 ${
+                   pathname === linkItem.href
+                     ? "text-[#228B22] drop-shadow-[0px_0px_8px_#228B22]"
+                     : ""
+                 }
+                transition-transform duration-200 ease-out group-hover:scale-125`}
+                />
               </Link>
             </div>
           );

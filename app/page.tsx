@@ -15,11 +15,11 @@ const Home = () => {
 
   const isDark = mounted ? resolvedTheme === "dark" : false;
   const frontImage = isDark
-    ? "/images/portfolio/night-p1.png"
-    : "/images/portfolio/day-p2.webp";
+    ? "/images/portfolio/hero-night-sketch.webp"
+    : "/images/portfolio/hero-day-sketch.webp";
   const backImage = isDark
-    ? "/images/portfolio/night2.png"
-    : "/images/portfolio/day1.webp";
+    ? "/images/portfolio/hero-night.webp"
+    : "/images/portfolio/hero-day.webp";
 
   return (
     <>

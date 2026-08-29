@@ -6,11 +6,12 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 
 // Preload all portfolio reveal textures so page transitions and theme changes are instantaneous
+
 useTexture.preload([
-  "/images/portfolio/night-p1.png",
-  "/images/portfolio/day-p2.webp",
-  "/images/portfolio/night2.png",
-  "/images/portfolio/day1.webp",
+  "/images/portfolio/hero-night-sketch.webp",
+  "/images/portfolio/hero-day-sketch.webp",
+  "/images/portfolio/hero-night.webp",
+  "/images/portfolio/hero-day.webp",
 ]);
 
 // Intercept Three.js internal warnings to resolve THREE.Clock deprecation notice triggered by dependencies
@@ -488,4 +489,3 @@ const FluidDistortionEffect = ({ frontImage, backImage }: FluidRevealProps) => {
 };
 
 export default FluidDistortionEffect;
-

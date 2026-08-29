@@ -1,6 +1,8 @@
 import Link from "next/link";
 import React from "react";
 import { FaGithub } from "react-icons/fa6";
+import ToolTip from "../common/ToolTip";
+import CTAButton from "../common/CTAButton";
 
 const FrontLayerContent = () => {
   return (
@@ -32,31 +34,13 @@ const FrontLayerContent = () => {
           about how it looks, feels, and works.
         </p>
         <div className="pointer-events-auto flex space-x-4 items-center">
-          <button
-            type="button"
-            className="
-              px-4
-              py-2
-              bg-foreground
-              text-background
-              tracking-wider
-              cursor-pointer
-              transition-transform
-              duration-200
-              hover:scale-105
-              active:scale-95
-              rounded-3xl
-              font-mono
-              text-lg
-            "
-          >
-            Let's Talk
-          </button>
-          <Link
-            href={"https://github.com/sakthii05"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-foreground
+          <CTAButton/>
+          <div className="relative group">
+            <Link
+              href={"https://github.com/sakthii05"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground
               tracking-wider
               cursor-pointer
               transition-transform
@@ -65,9 +49,11 @@ const FrontLayerContent = () => {
               active:scale-100
               text-4xl
             "
-          >
-            <FaGithub />
-          </Link>
+            >
+              <FaGithub />
+            </Link>
+            <ToolTip>Github</ToolTip>
+          </div>
         </div>
       </div>
     </div>
