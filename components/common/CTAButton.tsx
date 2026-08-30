@@ -42,7 +42,7 @@ const CTAButton = () => {
                 transition-all duration-200 ease-out flex flex-col items-center`}
       >
         <div
-          className="rounded-full bg-background px-3 py-2 font-semibold tracking-wider 
+          className="rounded-full bg-background dark:bg-foreground px-3 py-2 font-semibold tracking-wider 
                 text-foreground text-base shadow-lg  backdrop-blur-md whitespace-nowrap font-mono"
         >
           <div className="flex gap-4 items-center  text-2xl">
@@ -72,7 +72,7 @@ const CTAButton = () => {
             </Link>
           </div>
         </div>
-        <div className="-mt-1 h-2 w-2 rotate-45 bg-background" />
+        <div className="-mt-1 h-2 w-2 rotate-45 bg-background dark:bg-foreground" />
       </div>
     </div>
   );

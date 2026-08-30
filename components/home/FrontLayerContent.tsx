@@ -18,8 +18,8 @@ const FrontLayerContent = () => {
         "
     >
       <div className="absolute h-40 w-full  bg-linear-to-t from-background to-transparent bottom-0 "></div>
-      <div className="hidden md:block absolute h-full w-60  bg-linear-to-r from-background  to-transparent -left-1 "></div>
-      <div className="hidden md:block absolute h-full w-60  bg-linear-to-l from-background to-transparent -right-1  "></div>
+      <div className="hidden md:block absolute h-full w-60  bg-linear-to-r  from-25% from-background  to-transparent -left-1 "></div>
+      <div className="hidden md:block absolute h-full w-60  bg-linear-to-l  from-25% from-background to-transparent -right-1  "></div>
       <div className="absolute pt-15 md:pt-20 md:px-20 px-5 space-y-4">
         <h2 className=" text-4xl font-semibold font-mono ">
           Frontend Developer
@@ -34,7 +34,7 @@ const FrontLayerContent = () => {
           about how it looks, feels, and works.
         </p>
         <div className="pointer-events-auto flex space-x-4 items-center">
-          <CTAButton/>
+          <CTAButton />
           <div className="relative group">
             <Link
               href={"https://github.com/sakthii05"}

@@ -28,6 +28,50 @@ body {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted-foreground: var(--muted-foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Default fonts */
+    --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+   /* Custom LED & Display fonts */
+   --font-digital: var(--font-digital), sans-serif;
+}
+
+/* Smooth scrolling for inner content */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer utilities {
+
+  /* Red LED glow effect on text */
+  .led-text {
+    color: #ff2a2a;
+    text-shadow:
+      0 0 2px #ff0000,
+      0 0 4px #ff0000,
+      0 0 8px rgba(255, 0, 0, 0.8),
+      0 0 12px rgba(255, 40, 40, 0.6);
+  }
+
+  /* Continuous seamless scroll */
+  @keyframes led-scroll {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-led-scroll {
+    animation: led-scroll 8s linear infinite;
+    will-change: transform;
+  }
 }
