@@ -12,17 +12,18 @@ import {
   animate,
 } from "framer-motion";
 import { useEffect, useRef, useState, useCallback } from "react";
+import Image from "next/image";
 
 // Adjust this value (in pixels) to control how far down the shutter stops at the top
-const TOP_OFFSET = 50;
+const TOP_OFFSET = 30;
 
 export default function WindowShutter() {
-  const parentRef = useRef<HTMLDivElement>(null);
+  const shutterRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const isFirstLayout = useRef(true);
 
   const [height, setHeight] = useState(0);
-  const [isOpen, setIsOpen] = useState(false); // 1. Initial State set to Open
+  const [isOpen, setIsOpen] = useState(true); // 1. Initial State set to Open
   const [hasInteracted, setHasInteracted] = useState(false);
 
   const y = useMotionValue(0);
@@ -35,23 +36,23 @@ export default function WindowShutter() {
    * Measure responsive parent height and set starting position to Open
    */
   useEffect(() => {
-    if (!parentRef.current) return;
+    if (!shutterRef.current) return;
 
     const observer = new ResizeObserver(() => {
-      const rect = parentRef.current?.getBoundingClientRect();
+      const rect = shutterRef.current?.getBoundingClientRect();
       if (rect) {
         setHeight(rect.height);
 
         // On first render, immediately place the shutter in the open position
-        // if (isFirstLayout.current) {
-        //   const initialTopLimit = -(rect.height - TOP_OFFSET);
-        //   y.set(initialTopLimit);
-        //   isFirstLayout.current = false;
-        // }
+        if (isFirstLayout.current) {
+          const initialTopLimit = -(rect.height - TOP_OFFSET);
+          y.set(initialTopLimit);
+          isFirstLayout.current = false;
+        }
       }
     });
 
-    observer.observe(parentRef.current);
+    observer.observe(shutterRef.current);
     return () => observer.disconnect();
   }, [y]);
 
@@ -80,24 +81,24 @@ export default function WindowShutter() {
   //   [y],
   // );
   // Helper function to safely play audio files from your /public folder
-const playSound = (soundPath: string) => {
-  if (typeof window !== "undefined") {
-    const audio = new Audio(soundPath);
-    audio.volume = 0.5; // adjust volume (0.0 to 1.0)
-    audio.play().catch(() => {}); // Prevents browser autoplay policy errors
-  }
-};
+  const playSound = (soundPath: string) => {
+    if (typeof window !== "undefined") {
+      const audio = new Audio(soundPath);
+      audio.volume = 0.5; // adjust volume (0.0 to 1.0)
+      audio.play().catch(() => {}); // Prevents browser autoplay policy errors
+    }
+  };
 
   const open = useCallback(() => {
     setIsOpen(true);
     animateTo(topLimit);
-     playSound("/images/portfolio/shutter-sound.m4a"); 
+    playSound("/images/portfolio/shutter-sound.m4a");
   }, [topLimit, animateTo]);
 
   const close = useCallback(() => {
     setIsOpen(false);
     animateTo(0);
-    playSound("/images/portfolio/shutter-sound.m4a"); 
+    playSound("/images/portfolio/shutter-sound.m4a");
   }, [animateTo]);
 
   // const autoClose = useCallback(() => {
@@ -170,68 +171,103 @@ const playSound = (soundPath: string) => {
 
   return (
     <div
-      ref={parentRef}
       className="
-        absolute z-3 bg-transparent
-        w-[80%] lg:w-[56%]
-        h-[55%]
-        rounded-4xl
-        top-[41%] lg:top-[38%]
+        absolute 
+        w-75
+        h-60
+        top-[40%]
         left-1/2 -translate-x-1/2 -translate-y-1/2
         overflow-hidden
       "
     >
-      <motion.div
-        className="
+      <div className="absolute inset-0 overflow-hidden rounded-[5rem] m-1 z-0 ">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source
+            src="/images/portfolio/train-video-night.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+      <div className="absolute inset-0 overflow-hidden rounded-[3rem] z-1 ">
+        <Image
+          src={"/images/portfolio/window-inner-frame.webp"}
+          alt="exp"
+          fill
+          className="object-fit scale-90  brightness-100
+              dark:brightness-30"
+        />
+      </div>
+      <div className="absolute inset-0 overflow-hidden m-4 rounded-2xl z-2">
+        <div ref={shutterRef} className="absolute inset-0 overflow-hidden">
+          <motion.div
+            className="
           absolute inset-0
           h-full w-full
-          bg-red-700
+          flex justify-center items-center
           rounded-4xl
-          select-none
-          flex flex-col
+          select-none 
         "
-        style={{ y }}
-        drag="y"
-        dragListener={false}
-        dragControls={dragControls}
-        dragConstraints={{
-          top: topLimit, // Stops slightly down from top
-          bottom: 0,
-        }}
-        dragElastic={0} // No elastic overshoot beyond limits
-        dragMomentum={false} // No momentum bounce
-        onDragStart={handleInteraction}
-        onDragEnd={handleDragEnd}
-      >
-        {/* Shutter Main Content (Not draggable) */}
-        <div className="flex-1 p-6 text-white">
-          <h2 className="text-2xl font-bold">Shutter Content</h2>
-          <p className="mt-2 opacity-80">
-            This starts in the open position. If not touched, it will
-            automatically close in 6 seconds.
-          </p>
-        </div>
-
-        {/* ===== Drag Handle Area ===== */}
-        <div
-          onPointerDown={(e) => {
-            handleInteraction();
-            dragControls.start(e);
-          }}
-          className="
-            w-full py-5
-            flex flex-col items-center justify-center
+            style={{ y }}
+            drag="y"
+            dragListener={false}
+            dragControls={dragControls}
+            dragConstraints={{
+              top: topLimit, // Stops slightly down from top
+              bottom: 0,
+            }}
+            dragElastic={0} // No elastic overshoot beyond limits
+            dragMomentum={false} // No momentum bounce
+            onDragStart={handleInteraction}
+            onDragEnd={handleDragEnd}
+          >
+            <Image
+              src="/images/portfolio/window-shutter.webp"
+              alt=""
+              fill
+              draggable={false}
+              className="
+              pointer-events-none
+              absolute
+              inset-0
+              h-full
+              w-full
+              object-fill
+               select-none
+              brightness-100
+              dark:brightness-30
+            "
+            />
+            <div
+              onPointerDown={(e) => {
+                handleInteraction();
+                dragControls.start(e);
+              }}
+              className="
+            absolute bottom-1 rounded-b-[6rem]
+            w-[90%] h-6 
             cursor-grab active:cursor-grabbing
             touch-none
           "
-          style={{ touchAction: "none" }}
-        >
-          <div className="w-14 h-1.5 rounded-full bg-white/70" />
-          <span className="mt-2 text-xs text-white/70 tracking-wide">
-            DRAG TO CLOSE
-          </span>
+              style={{ touchAction: "none" }}
+            ></div>
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
+      <div className="absolute inset-0 overflow-hidden rounded-[3rem] z-3 pointer-events-none ">
+        <Image
+          src={"/images/portfolio/window-outer-frame.webp"}
+          alt="exp"
+          fill
+          className="object-fit  brightness-100
+              dark:brightness-30"
+        />
+      </div>
     </div>
   );
 }

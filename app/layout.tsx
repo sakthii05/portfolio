@@ -38,9 +38,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${vt323.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${vt323.variable} ${geistMono.variable} h-full antialiased `}
     >
-      <body className="min-h-full flex flex-col">
+      <body >
         <ThemeProviders>
           <PageTransitionWrapper>
             <Layout>{children}</Layout>

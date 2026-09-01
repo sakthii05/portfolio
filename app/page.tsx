@@ -33,7 +33,7 @@ const Home = () => {
           z-0
           flex justify-center items-center
           pointer-events-none
-          bg-background
+          
         "
       >
         <div className="relative max-w-350 h-full w-full bg-background overflow-hidden">
