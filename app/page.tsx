@@ -23,9 +23,9 @@ const Home = () => {
 
   return (
     <>
-      {/* front layer content */}
+      {/* Front layer content */}
       <FrontLayerContent />
-      {/* image reveal animation */}
+      {/* Hero Image reveal animation */}
       <div
         className="
           absolute

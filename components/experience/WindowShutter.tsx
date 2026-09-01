@@ -1,9 +1,5 @@
 "use client";
 
-// "absolute z-4 bg-transparent w-[80%] lg:w-[56%] h-[55%] rounded-4xl top-[41%] lg:top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2"
-
-"use client";
-
 import {
   motion,
   useMotionValue,
@@ -172,14 +168,13 @@ export default function WindowShutter() {
   return (
     <div
       className="
-        absolute 
+       relative
         w-75
         h-60
-        top-[40%]
-        left-1/2 -translate-x-1/2 -translate-y-1/2
         overflow-hidden
       "
     >
+      {/* video */}
       <div className="absolute inset-0 overflow-hidden rounded-[5rem] m-1 z-0 ">
         <video
           autoPlay
@@ -189,11 +184,12 @@ export default function WindowShutter() {
           className="w-full h-full object-cover"
         >
           <source
-            src="/images/portfolio/train-video-night.mp4"
+            src="/images/portfolio/train-video2.mp4"
             type="video/mp4"
           />
         </video>
       </div>
+      {/* inner-frame */}
       <div className="absolute inset-0 overflow-hidden rounded-[3rem] z-1 ">
         <Image
           src={"/images/portfolio/window-inner-frame.webp"}
@@ -203,6 +199,7 @@ export default function WindowShutter() {
               dark:brightness-30"
         />
       </div>
+      {/* shutter */}
       <div className="absolute inset-0 overflow-hidden m-4 rounded-2xl z-2">
         <div ref={shutterRef} className="absolute inset-0 overflow-hidden">
           <motion.div
@@ -259,6 +256,7 @@ export default function WindowShutter() {
           </motion.div>
         </div>
       </div>
+      {/* outer-farme */}
       <div className="absolute inset-0 overflow-hidden rounded-[3rem] z-3 pointer-events-none ">
         <Image
           src={"/images/portfolio/window-outer-frame.webp"}
