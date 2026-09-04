@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 
 // Adjust this value (in pixels) to control how far down the shutter stops at the top
 const TOP_OFFSET = 30;
@@ -17,9 +18,17 @@ export default function WindowShutter() {
   const shutterRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const isFirstLayout = useRef(true);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted ? resolvedTheme === "dark" : false;
 
   const [height, setHeight] = useState(0);
-  const [isOpen, setIsOpen] = useState(true); // 1. Initial State set to Open
+  const [isOpen, setIsOpen] = useState(false); // 1. Initial State set to Open
   const [hasInteracted, setHasInteracted] = useState(false);
 
   const y = useMotionValue(0);
@@ -40,11 +49,11 @@ export default function WindowShutter() {
         setHeight(rect.height);
 
         // On first render, immediately place the shutter in the open position
-        if (isFirstLayout.current) {
-          const initialTopLimit = -(rect.height - TOP_OFFSET);
-          y.set(initialTopLimit);
-          isFirstLayout.current = false;
-        }
+        // if (isFirstLayout.current) {
+        //   const initialTopLimit = -(rect.height - TOP_OFFSET);
+        //   y.set(initialTopLimit);
+        //   isFirstLayout.current = false;
+        // }
       }
     });
 
@@ -171,7 +180,6 @@ export default function WindowShutter() {
        relative
         w-75
         h-60
-        overflow-hidden
       "
     >
       {/* video */}
@@ -184,7 +192,11 @@ export default function WindowShutter() {
           className="w-full h-full object-cover"
         >
           <source
-            src="/images/portfolio/train-video2.mp4"
+            src={
+              isDark
+                ? "/images/portfolio/train-video-night.mp4"
+                : "/images/portfolio/train-video2.mp4"
+            }
             type="video/mp4"
           />
         </video>

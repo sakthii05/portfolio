@@ -10,7 +10,6 @@ const FrontLayerContent = () => {
       className="
           relative
           z-10
-          max-w-350
           w-full
           h-full
           pointer-events-none

@@ -3,20 +3,11 @@ import FloatingNavbar from "./FloatingNavBar";
 
 const Layout = (props: { children: ReactNode }) => {
   return (
-    <main>
-      <section
-        className="
-        relative
-        w-full
-        h-dvh
-        overflow-hidden
-        flex justify-center items-center
-        bg-background
-      "
-      >
+    <main className=" w-full flex justify-center font-sans items-start  overflow-x-hidden bg-background">
+      <div className="w-full max-w-350 ">
         {props.children}
         <FloatingNavbar />
-      </section>
+      </div>
     </main>
   );
 };

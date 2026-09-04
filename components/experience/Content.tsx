@@ -149,7 +149,7 @@ const experiences: ExperienceItem[] = [
   },
 ];
 
-const skillCategories = [
+export const skillCategories = [
   {
     name: "Languages & Core",
     icon: LuCode,
@@ -236,7 +236,7 @@ const educations: EducationItem[] = [
   },
 ];
 
-const ExperiencePage = () => {
+const Content = () => {
   // Track open accordion IDs (default first experience open for great first impression)
   const [openExperiences, setOpenExperiences] = useState<
     Record<string, boolean>
@@ -454,55 +454,7 @@ const ExperiencePage = () => {
         </section>
 
         {/* 2. SKILLS SECTION */}
-        <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-foreground/10 pb-4">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-foreground/5 text-foreground border border-foreground/10">
-                <LuCode className="size-5" />
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-semibold font-mono tracking-wide text-foreground">
-                Skills & Technologies
-              </h2>
-            </div>
-            <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
-              02 / Skills
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {skillCategories.map((category) => {
-              const CategoryIcon = category.icon;
-              return (
-                <div
-                  key={category.name}
-                  className="rounded-2xl border border-foreground/10 bg-background/50 hover:border-foreground/25 backdrop-blur-xl p-5 sm:p-6 space-y-3.5 transition-all duration-300 shadow-sm flex flex-col justify-between"
-                >
-                  <div className="flex items-center gap-2.5 text-foreground">
-                    <CategoryIcon className="size-4 text-muted-foreground" />
-                    <h3 className="font-mono text-base font-semibold tracking-wide">
-                      {category.name}
-                    </h3>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill) => {
-                      const SkillIcon = skill.icon;
-                      return (
-                        <div
-                          key={skill.name}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono border border-foreground/10 bg-foreground/5 hover:bg-foreground/10 hover:border-foreground/20 text-foreground/90 transition-colors"
-                        >
-                          <SkillIcon className="size-3.5 text-foreground/75" />
-                          <span>{skill.name}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
+       
 
         {/* 3. EDUCATION SECTION */}
         <section className="space-y-6">
@@ -649,4 +601,4 @@ const ExperiencePage = () => {
   );
 };
 
-export default ExperiencePage;
+export default Content;

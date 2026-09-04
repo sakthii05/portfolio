@@ -40,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={`${geistSans.variable} ${vt323.variable} ${geistMono.variable} h-full antialiased `}
     >
-      <body >
+      <body>
         <ThemeProviders>
           <PageTransitionWrapper>
             <Layout>{children}</Layout>

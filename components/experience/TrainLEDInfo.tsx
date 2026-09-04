@@ -1,8 +1,7 @@
 "use client";
-
 const TrainLEDInfo = () => {
   const date = new Date();
-  console.log(date.getTime(), date.getTimezoneOffset(), date.getHours());
+
   return (
     <div className="relative w-40 h-10 rounded-2xl border-3 bg-neutral-900 overflow-hidden shadow-inner">
       {/* LED dot matrix background pattern */}

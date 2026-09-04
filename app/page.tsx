@@ -22,7 +22,7 @@ const Home = () => {
     : "/images/portfolio/hero-day.webp";
 
   return (
-    <>
+    <section className="relative w-full h-dvh flex justify-center items-center">
       {/* Front layer content */}
       <FrontLayerContent />
       {/* Hero Image reveal animation */}
@@ -36,7 +36,7 @@ const Home = () => {
           
         "
       >
-        <div className="relative max-w-350 h-full w-full bg-background overflow-hidden">
+        <div className="relative  h-full w-full bg-background overflow-hidden">
           <Canvas
             camera={{
               position: [0, 0, 1],
@@ -57,8 +57,7 @@ const Home = () => {
           </Canvas>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 export default Home;
-

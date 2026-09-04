@@ -1,15 +1,14 @@
 import WindowShutter from "@/components/experience/WindowShutter";
 import TrainLEDInfo from "@/components/experience/TrainLEDInfo";
+import Timeline from "@/components/experience/TimeLine";
 
 const ExperiencePage = () => {
-
   return (
-    <>
-      <div className="relative w-full h-full max-w-250 overflow-hidden flex flex-col justify-center items-center gap-8">
-        <WindowShutter />
-        <TrainLEDInfo />
-      </div>
-    </>
+    <section className="w-full flex flex-col justify-center items-center  py-10">
+      <WindowShutter />
+      {/* <TrainLEDInfo /> */}
+      <Timeline />
+    </section>
   );
 };
 
