@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
-import { useTheme } from "next-themes";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 // Adjust this value (in pixels) to control how far down the shutter stops at the top
 const TOP_OFFSET = 30;
@@ -18,14 +18,7 @@ export default function WindowShutter() {
   const shutterRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const isFirstLayout = useRef(true);
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isDark = mounted ? resolvedTheme === "dark" : false;
+ const { isDark } = useThemeMode();
 
   const [height, setHeight] = useState(0);
   const [isOpen, setIsOpen] = useState(false); // 1. Initial State set to Open
@@ -185,6 +178,7 @@ export default function WindowShutter() {
       {/* video */}
       <div className="absolute inset-0 overflow-hidden rounded-[5rem] m-1 z-0 ">
         <video
+          key={isDark ? "night" : "day"}
           autoPlay
           loop
           muted
