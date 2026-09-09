@@ -22,10 +22,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted-foreground: var(--muted-foreground);
+  --color-button:#313131;
   /* Default fonts */
     --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
     --font-mono: var(--font-geist-mono), ui-monospace, monospace;

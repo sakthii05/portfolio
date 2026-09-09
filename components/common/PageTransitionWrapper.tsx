@@ -83,7 +83,7 @@ const PageTransitionWrapper = ({ children }: { children: ReactNode }) => {
           className="w-full scale-130 h-full"
           preserveAspectRatio="xMidYMid slice"
         >
-          {/* <path
+          <path
             ref={svgPathRef}
             d="M13.4746 291.27C13.4746 291.27 100.646 -18.6724 255.617 16.8418C410.588 52.356 61.0296 431.197 233.017 546.326C431.659 679.299 444.494 21.0125 652.73 100.784C860.967 180.556 468.663 430.709 617.216 546.326C765.769 661.944 819.097 48.2722 988.501 120.156C1174.21 198.957 809.424 543.841 988.501 636.726C1189.37 740.915 1301.67 149.213 1301.67 149.213"
             // stroke={
@@ -95,7 +95,7 @@ const PageTransitionWrapper = ({ children }: { children: ReactNode }) => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-          /> */}
+          />
 
           {/* <path
             ref={svgPathRef}
@@ -107,7 +107,7 @@ const PageTransitionWrapper = ({ children }: { children: ReactNode }) => {
             fill="none"
           /> */}
           {/* spiral */}
-          <path
+          {/* <path
             ref={svgPathRef}
             d="M650 350 C650 300 700 280 720 320 C740 360 710 410 660 400 C610 390 580 320 620 270 C660 220 750 210 790 270 C830 330 810 440 740 470 C670 500 560 450 540 370 C520 290 570 180 670 160 C770 140 880 210 910 320 C940 430 870 560 750 590 C630 620 490 530 460 400 C430 270 520 120 670 90 C820 60 990 170 1030 330 C1070 490 960 670 780 700 L1300 700"
             stroke="var(--foreground)"
@@ -115,7 +115,7 @@ const PageTransitionWrapper = ({ children }: { children: ReactNode }) => {
             strokeLinecap="round"
             strokeLinejoin="round"
             fill="none"
-          />
+          /> */}
         </svg>
       </div>
       {children}

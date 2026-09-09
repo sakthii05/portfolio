@@ -5,6 +5,8 @@ import {
   Instrument_Serif,
   Urbanist,
   VT323,
+  Courier_Prime,
+  Caveat
 } from "next/font/google";
 import "./globals.css";
 import { ThemeProviders } from "@/components/common/ThemeProviders";
@@ -38,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${vt323.variable} ${geistMono.variable} h-full antialiased `}
+      className={`${geistSans.variable} ${vt323.variable} ${geistMono.variable} h-full antialiased bg-background scrollbar-hide `}
     >
       <body>
         <ThemeProviders>

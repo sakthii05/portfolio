@@ -1,19 +1,13 @@
 "use client";
 import { Canvas } from "@react-three/fiber";
 import FluidDistortionEffect from "@/components/home/FluidDistortionEffect";
-import { Suspense, useState, useEffect } from "react";
-import { useTheme } from "next-themes";
+import { Suspense } from "react";
 import FrontLayerContent from "@/components/home/FrontLayerContent";
+import { useThemeMode } from "@/hooks/useThemeMode";
 
 const Home = () => {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const {isDark} = useThemeMode();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isDark = mounted ? resolvedTheme === "dark" : false;
   const frontImage = isDark
     ? "/images/portfolio/hero-night-sketch.webp"
     : "/images/portfolio/hero-day-sketch.webp";

@@ -171,8 +171,11 @@ export default function WindowShutter() {
     <div
       className="
        relative
-        w-75
-        h-60
+       w-60
+       h-45
+        md:w-75
+        md:h-60
+
       "
     >
       {/* video */}
@@ -206,7 +209,7 @@ export default function WindowShutter() {
         />
       </div>
       {/* shutter */}
-      <div className="absolute inset-0 overflow-hidden m-4 rounded-2xl z-2">
+      <div className="absolute inset-0 overflow-hidden m-2.5 md:m-4 rounded-2xl z-2">
         <div ref={shutterRef} className="absolute inset-0 overflow-hidden">
           <motion.div
             className="
