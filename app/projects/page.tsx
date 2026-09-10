@@ -16,7 +16,7 @@ export default function ProjectPage() {
       {/* Hero Section */}
       <header className="space-y-3 w-full sm:w-[70%] md:w-[65%] lg:w-[50%] flex  flex-col items-center justify-center">
         <h2 className="text-2xl font-mono font-semibold ">Selected Projects</h2>
-        <p className="font-medium text-center text-base text-foreground/80 leading-relaxed">
+        <p className="font-medium text-center text-sm md:text-base text-foreground/80 leading-relaxed">
           A curated index of production work, creative engineering, and
           architectural interfaces built across client collaborations and onsite
           software roles.
@@ -26,8 +26,7 @@ export default function ProjectPage() {
       {/* Section 1: Freelance Projects */}
       <ProjectSection
         title="Freelance"
-        subtext="Independent client solutions, custom brand experiences, and
-              digital platforms."
+        subtext="Websites designed, developed, optimized, and launched as complete digital identities for real businesses."
         numberOfProjects={4}
         sectionId="freelance"
       >
@@ -44,6 +43,7 @@ export default function ProjectPage() {
           </button>
         </div> */}
         <StampStack />
+        {/* <StampStackTest/> */}
       </ProjectSection>
 
       <ProjectSection

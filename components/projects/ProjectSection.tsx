@@ -11,10 +11,10 @@ const ProjectSection = (props: {
   return (
     <section
       aria-labelledby="freelance-heading"
-      className="space-y-8 w-full sm:w-[70%] md:w-[65%] lg:w-[55%]"
+      className=" space-y-4 w-full sm:w-[70%] md:w-[65%] lg:w-[55%]"
       id={sectionId}
     >
-      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-foreground/10 pb-4">
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2  pb-4">
         <div className="space-y-1">
           <h2
             id="freelance-heading"
