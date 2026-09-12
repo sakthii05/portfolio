@@ -1,19 +1,11 @@
 "use client";
-
-import React from "react";
-import { ProjectCard } from "@/components/projects/ProjectCard";
-import {
-  freelanceProjects,
-  onsiteProjects,
-} from "@/components/projects/projectsData";
 import ProjectSection from "@/components/projects/ProjectSection";
-import Image from "next/image";
 import StampStack from "@/components/projects/StampStack";
-import ConfidentialFile from "@/components/projects/File";
+import FolderUI from "@/components/projects/FolderUI";
 
 export default function ProjectPage() {
   return (
-    <div className="w-full flex flex-col items-center justify-center gap-10 md:gap-15 px-5 sm:px-8 md:px-12 pt-10 md:pt-20">
+    <div className="w-full flex flex-col items-center justify-center px-5 sm:px-8 md:px-12 pt-10 md:pt-20">
       {/* Hero Section */}
       <header className="space-y-3 w-full sm:w-[70%] md:w-[65%] lg:w-[50%] flex  flex-col items-center justify-center">
         <h2 className="text-2xl font-mono font-semibold ">Selected Projects</h2>
@@ -37,10 +29,10 @@ export default function ProjectPage() {
       <ProjectSection
         title=" Onsite"
         subtext="Engineering scalable systems, design infrastructure, and mission-critical telemetry at Ticvic Technologies."
-        numberOfProjects={4}
+        numberOfProjects={3}
         sectionId="onsite"
       >
-       <ConfidentialFile/>
+       <FolderUI/>
       </ProjectSection>
 
    

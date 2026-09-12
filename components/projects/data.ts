@@ -99,33 +99,52 @@ export type OnsiteProjectType ={
         title:string,
         subtext:string,
         subject:string,
-        content:string,
+        content:string[],
         positionStyle:{rotate:string, translateX:string,zindex:number}
 }
 
 export const onsiteProjects:OnsiteProjectType[] = [
     {
         id:"01",
-        title:"Feedback Platform",
-        subtext:"",
-        subject:"",
-        content:"",
-        positionStyle:{rotate:"4deg", translateX:"10px", zindex:3}
+        title:"Feedback Platform ",
+        subtext:"An internal feedback and survey platform built to streamline employee feedback and team-based survey workflows. It provides role-specific experiences, dynamic forms, real-time updates, and custom analytics dashboards.",
+        subject:"Feedback & Survey Platform for teams and individuals to share feedback and suggestions",
+        content:[
+          "Developed role-based workflows for admins, leads, and employees.",
+          "Built team-based surveys with dynamic form creation.",
+          "Implemented role-specific UI and access controls.",
+          "Created custom reporting and analytics dashboards.",
+          "Integrated WebSockets for real-time data updates.",
+        ],
+        positionStyle:{rotate:"4deg", translateX:"5px", zindex:3}
     },
     {
         id:"02",
         title:"Ticketing Dashboard",
-        subtext:"",
-        subject:"",
-        content:"",
-       positionStyle:{rotate:"4deg", translateX:"60px",zindex:2}
+        subtext:"A real-time product quality and testing dashboard designed to manage test outcomes, sequences, tickets, and activities. The platform provides role-based interfaces and live data visibility for streamlined testing workflows.",
+        subject:"Real-Time QA Dashboard for Automobile industry",
+        content:[
+          "Developed the frontend using Next.js.",
+          "Integrated Socket.io for real-time dashboard updates.",
+          "Built interfaces for test outcomes, sequences, and ticket management.",
+          "Implemented role-based UI and access control.",
+          "Build Sequence Based Testing and decision Making UI for testing department of Automotive Company.",
+          "Improved visibility and workflow for product testing and quality tracking.",
+        ],
+        positionStyle:{rotate:"4deg", translateX:"55px",zindex:2}
     },
     {
         id:"03",
         title:"Cyber Threat",
-        subtext:"",
-        subject:"",
-        content:"",
-       positionStyle:{rotate:"6deg", translateX:"100px",zindex:1}
+        subtext:"An interactive cybersecurity landing page that visualizes live threat activity and locations through a real-time map. It combines dynamic data visualization with continuous updates to create an immersive threat-monitoring experience.",
+        subject:"Live Cyber Threat using Real-Time Data Visualization with stream API",
+        content:[
+          "Designed and developed the interactive landing page.",
+          "Built the real-time threat location visualization.",
+          "Integrated EventSource (SSE) for continuous live updates.",
+          "Created responsive map-based data presentation.",
+          "Focused on interactive visual storytelling for complex cybersecurity data.",
+        ],
+       positionStyle:{rotate:"6deg", translateX:"105px",zindex:1}
     },
 ]

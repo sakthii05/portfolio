@@ -5,7 +5,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { skillCategories, timelineData } from "./content";
+import { skillCategories, timelineData } from "./data";
 import Image from "next/image";
 import { IoBookSharp } from "react-icons/io5";
 import SmoothTimeline from "./SmoothTimeline";

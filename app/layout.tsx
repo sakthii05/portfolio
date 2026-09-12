@@ -24,8 +24,8 @@ const geistMono = Instrument_Serif({
   subsets: ["latin"],
 });
 
-const vt323 = Courier_Prime({
-  variable: "--font-digital",
+const prime = Courier_Prime({
+  variable: "--font-prime",
   weight: ["400"],
   subsets: ["latin"],
 });
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${vt323.variable} ${geistMono.variable} h-full antialiased bg-background scrollbar-hide `}
+      className={`${geistSans.variable} ${prime.variable} ${geistMono.variable} h-full antialiased bg-background scrollbar-hide `}
     >
       <body>
         <ThemeProviders>

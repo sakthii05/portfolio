@@ -34,7 +34,7 @@ export const timelineData = [
     companyLogo: "/images/portfolio/tt-logo.png",
     description:
       "As a self-employed freelancer, I've worked with clients across different industries, developing project proposals tailored to their needs and bringing those ideas into working products. Along the way, I've completed 4-5 projects for different clients while exploring AI tools and building side projects to experiment with new ideas and technologies.",
-    project:{link:"/", show:true},
+    project:{link:"/projects#freelance", show:true},
   },
   {
     timeline: "2022 Nov - 2025 May",
@@ -43,7 +43,7 @@ export const timelineData = [
     companyLogo: "/images/portfolio/tt-logo.png",
     description:
       "Built and optimized production web applications using Next.js, focusing on performance, SEO, and user experience. Developed scalable frontend solutions while solving real-world technical challenges across diverse projects. Continuously explored new technologies and improved development workflows to deliver reliable, high-quality applications.",
-    project:{link:"/", show:true},
+    project:{link:"/projects#onsite", show:true},
   },
   {
     timeline: "2022 Jun - 2022 Oct",
