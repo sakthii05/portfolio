@@ -1,27 +1,20 @@
 "use client";
-
 import {
   LuCode,
   LuSparkles,
-  LuLayers,
-  LuCpu,
   LuWrench,
   LuGlobe,
   LuCodeXml,
 } from "react-icons/lu";
-import { FaReact, FaDocker, FaGitAlt, FaJira } from "react-icons/fa6";
+import { FaReact, FaDocker} from "react-icons/fa6";
 import {
   SiTypescript,
-  SiJavascript,
   SiNextdotjs,
   SiTailwindcss,
   SiRedux,
-  SiJest,
   SiCypress,
   SiSocketdotio,
   SiFramer,
-  SiVite,
-  SiAntdesign,
   SiHuggingface,
   SiLangchain,
   SiThreedotjs,
@@ -70,7 +63,6 @@ export const skillCategories = [
     icon: LuCode,
     marker: { skillIndex:[10], explore: true },
     skills: [
-      // { name: "JavaScript (ES6+)", icon: SiJavascript },
       { name: "TypeScript", icon: SiTypescript },
       { name: "Next.js", icon: SiNextdotjs },
        { name: "React.js", icon: FaReact },
@@ -101,8 +93,6 @@ export const skillCategories = [
      
     ],
   },
-
-
 ];
 
 

@@ -5,94 +5,14 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { FiExternalLink } from "react-icons/fi";
+import { StampType,stamps } from "./data";
 
-export type Stamp = {
-  id: string;
-  image: string;
-  x: number;
-  y: number;
-  rotate: number;
-  title: string;
-  subtext: string;
-  description: string;
-  year: string;
-  series: string;
-  projectLink: string;
-  color: string;
-};
 
-export const stamps: Stamp[] = [
-  {
-    id: "rvr",
-    image: "/images/project/company-logo/rvr.webp",
-    x: 59,
-    y: 60,
-    rotate: 4,
-    title: "RVR Homes",
-    subtext:
-      "A complete home-building service covering construction, interiors, renovation in Chennai.",
-    description:
-      "Client prefered basic digital business identity so started with the basic website package.Managed hosting, SEO foundations, business presence, and the complete transition from design concept to a live business website.",
-    year: "2025",
-    series: "Basic",
-    projectLink: "https://www.rvrhomes.in/",
-    color: "#5C4C73",
-  },
-  {
-    id: "nala",
-    image: "/images/project/company-logo/nala.webp",
-    x: 40,
-    y: 40,
-    rotate: -5,
-    title: "Nala Construction",
-    subtext:
-      "From structural planning to finished interiors, delivering complete home-building and renovation solutions.",
-    description:
-      "Designed and developed a standard residential construction website focused on trust, craftsmanship, interiors, services, and project presentation. Created the visual hierarchy, responsive layouts, interior showcase, service system, pricing packages, gallery, and enquiry journey.",
-    year: "2026",
-    series: "Standard",
-    projectLink: "https://nala-website-taupe.vercel.app/",
-    color: "#01260A",
-  },
-  {
-    id: "mech",
-    image: "/images/project/company-logo/mechzen.webp",
-    x: 35,
-    y: 65,
-    rotate: -45,
-    title: "Mechzen",
-    subtext:
-      "Engineering design solutions for special-purpose machines, robotics, production automation.",
-    description:
-      "Designed and developed a premium, design-driven industrial website with a strong focus on brand identity, visual storytelling, and digital experience, using GSAP as the primary animation framework. Crafted the interaction system, responsive layouts and brand-focused visual language to create a distinctive online presence. Provided end-to-end digital support and ongoing website maintenance.",
-    year: "2026",
-    series: "Premium",
-    projectLink: "",
-    color: "#cf3424",
-  },
-
-  {
-    id: "dl",
-    image: "/images/project/company-logo/dl.webp",
-    x: 50,
-    y: 50,
-    rotate: 15,
-    title: "DL Enterprises",
-    subtext:
-      "CNC cutting, laser processing, engraving, and custom fabrication solutions for modern industries.",
-    description:
-      "Designed and developed a complete industrial website focused on precision manufacturing and service presentation. Handled deployment, business profile presence, SEO structure, and technical optimization to establish a stronger online presence for the company",
-    year: "2025",
-    series: "standard",
-    projectLink: "https://dlenterprises.in/",
-    color: "#cf3424",
-  },
-];
 
 // Default scale for stamps in their resting state
 const RESTING_SCALE = 0.9;
 // Scale for the active (zoomed) stamp
-const ACTIVE_SCALE = 2;
+const ACTIVE_SCALE = 1.9;
 // Target position: 20% from top of viewport, centered horizontally
 const ACTIVE_TOP_VH = 0.3;
 
@@ -132,7 +52,7 @@ export default function StampStack() {
   }, [activeStamp]);
 
   const handleStampClick = useCallback(
-    (stamp: Stamp) => {
+    (stamp: StampType) => {
       const newZ = topZ + 1;
       setTopZ(newZ);
       setZIndexes((prev) => ({ ...prev, [stamp.id]: newZ }));
@@ -280,7 +200,7 @@ export default function StampStack() {
                 "
               />
               <div
-                className={`absolute inset-0 m-3 border-[0.5px] border-[${stamp.color}] flex flex-col items-center`}
+                className={`absolute inset-0 m-3 border-[0.5px] ${stamp.classname.parent} flex flex-col items-center`}
               >
                 <Image
                   src={stamp.image}
@@ -290,7 +210,7 @@ export default function StampStack() {
                 />
                 <div className="h-1"></div>
                 <div
-                  className={`border-[${stamp.color}] text-[${stamp.color}] border-t w-full p-1 space-y-1`}
+                  className={`${stamp.classname.child}  border-t w-full p-1 space-y-1`}
                 >
                   <h4 className="text-start text-xs font-mono font-semibold">
                     {stamp.title}
@@ -319,7 +239,7 @@ export default function StampStack() {
             className="
               fixed
               z-1001
-              w-[80%] md:w-[40%] lg:w-[18%]
+              w-[90%] md:w-[40%] lg:w-[30%]
               text-left
              
             "
@@ -337,8 +257,8 @@ export default function StampStack() {
               ease: easeOut,
             }}
           >
-            {/* Zoom */}
-            <div className="mb-5 h-10 flex justify-center"></div>
+            <div className="h-3 w-full"></div>
+           
 
             <h2
               className="

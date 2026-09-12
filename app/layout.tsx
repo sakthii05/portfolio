@@ -24,7 +24,7 @@ const geistMono = Instrument_Serif({
   subsets: ["latin"],
 });
 
-const vt323 = VT323({
+const vt323 = Courier_Prime({
   variable: "--font-digital",
   weight: ["400"],
   subsets: ["latin"],
