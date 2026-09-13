@@ -7,7 +7,7 @@ import { SiWhatsapp } from "react-icons/si";
 const CTAButton = () => {
   const [showTooltip, setShowToolTip] = useState(false);
   return (
-    <div className="relative inline-block">
+    <div className="relative inline-block ">
       <button
         onClick={() => {
           setShowToolTip(!showTooltip);
@@ -23,13 +23,14 @@ const CTAButton = () => {
               text-background
               tracking-wider
               cursor-pointer
-              transition-transform
+              transition-all
               duration-200
-              hover:scale-105
-              active:scale-95
+              active:translate-y-0.5
               rounded-3xl
               font-mono
               text-lg
+              dark:inset-shadow-black/50
+              inset-shadow-white/50 inset-shadow-sm
             "
       >
         Let's Talk

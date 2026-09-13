@@ -26,7 +26,7 @@ const FolderUI = () => {
   }, [activeProject]);
 
   return (
-    <div className="flex justify-center pb-40 pt-20 font-prime">
+    <div className="flex justify-center pt-10 md:pt-20 pb-20 font-prime ">
       {/* =========================================
           BACKDROP (blur overlay)
       ========================================== */}
@@ -35,7 +35,7 @@ const FolderUI = () => {
           <motion.div
             key="backdrop"
             onClick={() => setActiveProject(null)}
-            className="fixed inset-0 z-999 bg-black/45 backdrop-blur-[10px] flex justify-center items-center cursor-pointer touch-none"
+            className="fixed h-dvh inset-0 z-999 bg-black/45 backdrop-blur-[10px] flex justify-center items-center cursor-pointer touch-none"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -49,7 +49,7 @@ const FolderUI = () => {
                 className="object-fill"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
-              <div className="absolute space-y-5 inset-0  py-5 px-5 lg:px-10 overflow-y-scroll scrollbar-hide ">
+              <div className="absolute space-y-5 inset-0 my-1 py-5 px-5 lg:px-10 overflow-y-scroll scrollbar-hide ">
                 <h2 className="text-center text-xl md:text-2xl lg:text-3xl font-bold py-5 lg:py-10  ">
                   {activeProject.title}
                 </h2>
@@ -71,7 +71,7 @@ const FolderUI = () => {
         )}
       </AnimatePresence>
 
-      <div className="perspective-midrange  drop-shadow-lg ">
+      <div className="perspective-midrange  drop-shadow-lg mr-4 sm:mr-0 ">
         {/* file */}
         <div
           className="relative h-60 w-50 transform-3d group"
@@ -125,17 +125,29 @@ const FolderUI = () => {
           {/* file front */}
           <motion.div
             style={{ transformOrigin: "5px" }}
-            className={`absolute  text-foreground dark:text-background  z-10 p-4 inset-0 rounded-r-2xl rounded-l-lg bg-[#D9843B] inset-shadow-xs  transition-all duration-700 
+            className={`absolute  text-foreground dark:text-background  z-10 p-4 inset-0 rounded-r-2xl rounded-l-lg bg-[#D9843B] inset-shadow-black/40 inset-shadow-sm transition-all duration-700 
               ${isFolderOpen || activeProject ? "-rotate-y-50  translate-z-6" : ""}`}
           >
+            <div className=" absolute -top-1 left-4 rotate-12 ">
+              <Image
+                src={"/images/project/clip.webp"}
+                alt="u-clip"
+                height={24}
+                width={24}
+              />
+            </div>
+            <div className=" absolute flex h-fit top-24 -left-3 w-fit items-center justify-center">
+              <span className="-rotate-90 whitespace-nowrap font-medium text-sm">
+                23/2025
+              </span>
+            </div>
             <div className=""></div>
-            <div className=" w-fit "> 23/2025 </div>
-            <div className=" flex flex-col justify-end items-end  h-full space-y-2 pb-5">
+            <div className=" flex flex-col justify-end items-end h-full  space-y-1 ">
               <div className="text-center border-2 uppercase px-1 font-semibold">
                 Confidential
               </div>
-              <p className="text-center  text-sm">Project Insights</p>
-              <p className="md:hidden text-xs">(Tap to Open)</p>
+              <p className="text-center  text-xs">Project Insights</p>
+              {/* <p className="md:hidden text-xs">(Tap to Open)</p> */}
             </div>
           </motion.div>
         </div>

@@ -257,7 +257,7 @@ export default function StampStack() {
               ease: easeOut,
             }}
           >
-            <div className="h-3 w-full"></div>
+            <div className="h-2 w-full"></div>
            
 
             <h2

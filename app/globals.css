@@ -34,9 +34,10 @@ img {
   --color-button:#313131;
   /* Default fonts */
     --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-    --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-   /* Custom LED & Display fonts */
+    --font-mono: var(--font-mono), ui-monospace, monospace;
+   /* Display fonts */
    --font-prime: var(--font-prime), sans-serif;
+  --font-caveat: var(--font-caveat), sans-serif;
 }
 @custom-variant dark (&:where(.dark, .dark *));
 

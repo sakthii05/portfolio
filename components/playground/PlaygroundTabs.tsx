@@ -33,7 +33,7 @@ export const PlaygroundTabs: React.FC<PlaygroundTabsProps> = ({
       <div
         role="tablist"
         aria-label="Playground Showcase Tabs"
-        className="inline-flex items-center p-1 rounded-full border border-foreground/15 bg-foreground/[0.03] backdrop-blur-sm"
+        className="inline-flex items-center p-1 rounded-full border border-foreground/15 bg-foreground/3 backdrop-blur-sm"
       >
         {playgroundTabs.map((tab, idx) => {
           const isActive = activeTab === tab.id;
@@ -47,7 +47,7 @@ export const PlaygroundTabs: React.FC<PlaygroundTabsProps> = ({
               tabIndex={isActive ? 0 : -1}
               onClick={() => onTabChange(tab.id)}
               onKeyDown={(e) => handleKeyDown(e, idx)}
-              className={`relative px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm font-mono tracking-wide rounded-full transition-colors duration-200 cursor-pointer select-none focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-foreground ${
+              className={`relative px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm  tracking-wide rounded-full transition-colors duration-200 cursor-pointer select-none focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-foreground ${
                 isActive
                   ? "text-background font-medium"
                   : "text-muted-foreground hover:text-foreground"
@@ -67,7 +67,7 @@ export const PlaygroundTabs: React.FC<PlaygroundTabsProps> = ({
                     isActive ? "text-background" : "text-muted-foreground"
                   }`}
                 >
-                  ({tab.count})
+                  ( {tab.count} )
                 </span>
               </span>
             </button>

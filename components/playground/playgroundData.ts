@@ -8,7 +8,7 @@ export interface PlaygroundItem {
   date: string;
   description: string;
   technologies: string[];
-  interactiveType:
+  interactiveType?:
     | "fluid-distortion"
     | "train-shutter"
     | "led-marquee"
@@ -39,7 +39,7 @@ export const playgroundItems: PlaygroundItem[] = [
     date: "2025",
     description:
       "Interactive GLSL cursor displacement mapping and dual-layer image reveal effect running high-performance GPU shaders with zero frame drops.",
-    technologies: ["Three.js", "R3F", "GLSL", "WebGL"],
+    technologies: ["Three.js", "R3F", "GLSL"],
     interactiveType: "fluid-distortion",
   },
   {

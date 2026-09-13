@@ -18,14 +18,20 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Instrument_Serif({
-  variable: "--font-geist-mono",
+const serif = Instrument_Serif({
+  variable: "--font-mono",
   weight: ["400"],
   subsets: ["latin"],
 });
 
 const prime = Courier_Prime({
   variable: "--font-prime",
+  weight: ["400"],
+  subsets: ["latin"],
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
   weight: ["400"],
   subsets: ["latin"],
 });
@@ -40,7 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${prime.variable} ${geistMono.variable} h-full antialiased bg-background scrollbar-hide `}
+      className={`${geistSans.variable} ${prime.variable} ${serif.variable} ${caveat.variable} h-full antialiased bg-background scrollbar-hide `}
     >
       <body>
         <ThemeProviders>

@@ -62,7 +62,7 @@ export const stamps: StampType[] = [
     subtext:
       "Engineering design solutions for special-purpose machines, robotics, production automation.",
     description:
-      "Designed and developed a premium, design-driven industrial website with a strong focus on brand identity, visual storytelling, and digital experience, using GSAP as the primary animation framework. Crafted the interaction system, responsive layouts and brand-focused visual language to create a distinctive online presence. Provided end-to-end digital support and ongoing website maintenance.",
+      "Designed and developed a premium, design-driven industrial website with a strong focus on brand identity, visual storytelling, and digital experience, using GSAP as the primary animation framework. Crafted responsive layouts and brand-focused. Provided end-to-end digital support and ongoing website maintenance.",
     year: "2026",
     series: "Premium",
     projectLink: "",
@@ -127,7 +127,6 @@ export const onsiteProjects:OnsiteProjectType[] = [
           "Developed the frontend using Next.js.",
           "Integrated Socket.io for real-time dashboard updates.",
           "Built interfaces for test outcomes, sequences, and ticket management.",
-          "Implemented role-based UI and access control.",
           "Build Sequence Based Testing and decision Making UI for testing department of Automotive Company.",
           "Improved visibility and workflow for product testing and quality tracking.",
         ],

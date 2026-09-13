@@ -36,14 +36,14 @@ export default function Home() {
     <>
       <div className="space-y-3 text-center w-fit px-10 relative pt-8 ">
         <h2 className="text-2xl font-mono font-semibold">The Journey So Far</h2>
-        <p className="font-medium text-sm md:text-base text-foreground/70">
+        <p className="font-medium text-sm md:text-base text-foreground/80">
           Four years on the frontend track. <br /> Building, experimenting, and
           picking up new skills at every stop.
         </p>
       </div>
       <div
         ref={timelineRef}
-        className="relative grid grid-cols-[auto_1fr] w-full sm:w-[70%] md:w-[65%] lg:w-[55%] px-5 gap-7 md:gap-10 pt-15 pb-25"
+        className="relative grid grid-cols-[auto_1fr] w-full max-w-3xl px-5 gap-7 md:gap-10 pt-15 pb-25"
       >
         <SmoothTimeline smoothProgress={smoothProgress} dotY={dotY} />
 

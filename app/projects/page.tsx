@@ -5,7 +5,7 @@ import FolderUI from "@/components/projects/FolderUI";
 
 export default function ProjectPage() {
   return (
-    <div className="w-full flex flex-col items-center justify-center px-5 sm:px-8 md:px-12 pt-10 md:pt-20">
+    <div className="w-full flex flex-col items-center justify-center px-5 sm:px-8 md:px-12 pt-10 md:pt-20 pb-20">
       {/* Hero Section */}
       <header className="space-y-3 w-full sm:w-[70%] md:w-[65%] lg:w-[50%] flex  flex-col items-center justify-center">
         <h2 className="text-2xl font-mono font-semibold ">Selected Projects</h2>
@@ -32,10 +32,8 @@ export default function ProjectPage() {
         numberOfProjects={3}
         sectionId="onsite"
       >
-       <FolderUI/>
+        <FolderUI />
       </ProjectSection>
-
-   
     </div>
   );
 }

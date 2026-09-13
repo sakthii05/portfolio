@@ -10,7 +10,7 @@ gsap.registerPlugin(DrawSVGPlugin);
 const PageTransitionWrapper = ({ children }: { children: ReactNode }) => {
   const transitionOverlayRef = useRef(null);
   const svgPathRef = useRef(null);
-   const { resolvedTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     if (svgPathRef.current) {
@@ -123,4 +123,4 @@ const PageTransitionWrapper = ({ children }: { children: ReactNode }) => {
   );
 };
 
- export default PageTransitionWrapper;
+export default PageTransitionWrapper;

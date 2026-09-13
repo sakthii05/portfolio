@@ -18,7 +18,7 @@ export default function WindowShutter() {
   const shutterRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const isFirstLayout = useRef(true);
- const { isDark } = useThemeMode();
+  const { isDark } = useThemeMode();
 
   const [height, setHeight] = useState(0);
   const [isOpen, setIsOpen] = useState(false); // 1. Initial State set to Open
@@ -202,8 +202,9 @@ export default function WindowShutter() {
       <div className="absolute inset-0 overflow-hidden rounded-[3rem] z-1 ">
         <Image
           src={"/images/portfolio/window-inner-frame.webp"}
-          alt="exp"
+          alt="window-inner-farme"
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-fit scale-90  brightness-100
               dark:brightness-30"
         />
@@ -234,8 +235,9 @@ export default function WindowShutter() {
           >
             <Image
               src="/images/portfolio/window-shutter.webp"
-              alt=""
+              alt="window-shutter"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               draggable={false}
               className="
               pointer-events-none
@@ -269,8 +271,9 @@ export default function WindowShutter() {
       <div className="absolute inset-0 overflow-hidden rounded-[3rem] z-3 pointer-events-none ">
         <Image
           src={"/images/portfolio/window-outer-frame.webp"}
-          alt="exp"
+          alt="window-outer-farme"
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-fit  brightness-100
               dark:brightness-30"
         />
