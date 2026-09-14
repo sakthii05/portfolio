@@ -16,7 +16,9 @@ const Home = () => {
     : "/images/portfolio/hero-day.webp";
 
   return (
-    <section className="relative w-full h-dvh flex justify-center items-center">
+    <section
+      className="relative w-full h-dvh flex justify-center items-center"
+    >
       {/* Front layer content */}
       <FrontLayerContent />
       {/* Hero Image reveal animation */}

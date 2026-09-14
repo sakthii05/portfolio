@@ -90,13 +90,13 @@ export default function WindowShutter() {
   const open = useCallback(() => {
     setIsOpen(true);
     animateTo(topLimit);
-    playSound("/images/portfolio/shutter-sound.m4a");
+    playSound("/images/experience/shutter-sound.m4a");
   }, [topLimit, animateTo]);
 
   const close = useCallback(() => {
     setIsOpen(false);
     animateTo(0);
-    playSound("/images/portfolio/shutter-sound.m4a");
+    playSound("/images/experience/shutter-sound.m4a");
   }, [animateTo]);
 
   // const autoClose = useCallback(() => {
@@ -191,8 +191,8 @@ export default function WindowShutter() {
           <source
             src={
               isDark
-                ? "/images/portfolio/train-video-night.mp4"
-                : "/images/portfolio/train-video2.mp4"
+                ? "/images/experience/train-video-night.webm"
+                : "/images/experience/train-video-day.webm"
             }
             type="video/mp4"
           />
@@ -201,7 +201,7 @@ export default function WindowShutter() {
       {/* inner-frame */}
       <div className="absolute inset-0 overflow-hidden rounded-[3rem] z-1 ">
         <Image
-          src={"/images/portfolio/window-inner-frame.webp"}
+          src={"/images/experience/window-inner-frame.webp"}
           alt="window-inner-farme"
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -234,7 +234,7 @@ export default function WindowShutter() {
             onDragEnd={handleDragEnd}
           >
             <Image
-              src="/images/portfolio/window-shutter.webp"
+              src="/images/experience/window-shutter.webp"
               alt="window-shutter"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -270,7 +270,7 @@ export default function WindowShutter() {
       {/* outer-farme */}
       <div className="absolute inset-0 overflow-hidden rounded-[3rem] z-3 pointer-events-none ">
         <Image
-          src={"/images/portfolio/window-outer-frame.webp"}
+          src={"/images/experience/window-outer-frame.webp"}
           alt="window-outer-farme"
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

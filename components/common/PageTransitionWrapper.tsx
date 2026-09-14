@@ -91,7 +91,7 @@ const PageTransitionWrapper = ({ children }: { children: ReactNode }) => {
             //     ? "#ffff"
             //     : "#0a0a0a"
             // }
-            stroke="#0a0a0a"
+            stroke="#a1a1a1"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"

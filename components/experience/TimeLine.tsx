@@ -1,10 +1,6 @@
 "use client";
-import { useRef} from "react";
-import {
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { useRef } from "react";
+import { useScroll, useSpring, useTransform } from "framer-motion";
 import { skillCategories, timelineData } from "./data";
 import Image from "next/image";
 import { IoBookSharp } from "react-icons/io5";
@@ -32,6 +28,53 @@ export default function Home() {
   // 3. Map progress to top percentage for the moving indicator dot
   const dotY = useTransform(smoothProgress, (value) => `${value * 100}%`);
 
+  const ContentLayout = (props: {
+    title: string;
+    timeline: string;
+    companyLogo: string;
+    description: string;
+    company: string;
+    project?: { show: boolean; link: string };
+  }) => {
+    const { title, timeline, companyLogo, description, company, project } =
+      props;
+    return (
+      <div className="space-y-3">
+        <div className="flex items-center justify-between flex-wrap gap-5">
+          <p className="font-mono text-lg font-semibold tracking-wider">
+            {title}
+          </p>
+          <p className="text-xs text-muted-foreground">{timeline}</p>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full relative  overflow-hidden">
+            <Image
+              src={companyLogo}
+              alt={company}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover"
+            />
+          </div>
+          <p className=" font-medium text-sm text-foreground/80">{company}</p>
+        </div>
+
+        <p className=" leading-relaxed text-muted-foreground">{description}</p>
+        {project?.show && (
+          <Link href={project.link} className="flex justify-end pt-3">
+            <div className=" relative space-y-1 w-fit text-sm font-medium group">
+              <div className="flex items-center gap-3">
+                <BsFolder className="size-5" />
+                View projects
+              </div>
+              <div className=" w-0  group-hover:w-full transition-all duration-150 h-0.5 bg-foreground" />
+            </div>
+          </Link>
+        )}
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="space-y-3 text-center w-fit px-10 relative pt-8 ">
@@ -50,48 +93,20 @@ export default function Home() {
         {/* Content */}
         <div
           ref={trackRef}
-          className="w-full flex flex-col gap-10 items-center justify-center"
+          className="w-full flex flex-col gap-10 md:gap-15  items-center justify-center"
         >
           {/* experience */}
           {timelineData.map((item, index) => {
             return (
-              <div key={index} className="space-y-3">
-                <div className="flex items-center justify-between flex-wrap gap-5">
-                  <p className="font-mono text-lg font-semibold tracking-wider">
-                    {item.title}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {item.timeline}
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full  relative">
-                    <Image
-                      src={item.companyLogo}
-                      alt={item.company}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                  </div>
-                  <p className=" font-medium text-foreground/80">
-                    {item.company}
-                  </p>
-                </div>
-
-                <p className=" leading-relaxed text-muted-foreground">
-                  {item.description}
-                </p>
-                {item.project.show && (
-                  <Link href={item.project.link}>
-                    <div className=" relative space-y-1 w-fit text-sm font-medium group">
-                      <div className="flex items-center gap-3">
-                        <BsFolder className="size-5" />
-                        View projects
-                      </div>
-                      <div className=" w-0  group-hover:w-full transition-all duration-150 h-0.5 bg-foreground" />
-                    </div>
-                  </Link>
-                )}
+              <div key={index}>
+                <ContentLayout
+                  title={item.title}
+                  timeline={item.timeline}
+                  companyLogo={item.companyLogo}
+                  description={item.description}
+                  company={item.company}
+                  project={item.project}
+                />
               </div>
             );
           })}
@@ -129,7 +144,7 @@ export default function Home() {
                           return (
                             <div
                               key={skill.name}
-                              className="inline-flex relative items-center gap-2 px-4 py-1.5 rounded-full text-xs border border-foreground/40 hover:bg-foreground/5 hover:border-foreground/20 text-foreground/90 transition-colors"
+                              className="inline-flex cursor-default relative items-center gap-2 px-4 py-1.5 rounded-full text-xs border border-foreground/40 hover:bg-foreground/5 hover:border-foreground/20 text-foreground/90 transition-colors"
                             >
                               <div className="absolute -top-1 right-1 z-1">
                                 {isBookMark ? (
@@ -152,35 +167,16 @@ export default function Home() {
             </div>
           </div>
           {/* education */}
-          <div className="space-y-4">
-            <h3 className="font-mono text-xl font-semibold tracking-wider">
-              Education
-            </h3>
-            <div className="flex items-center gap-3">
-              <div className="w-6 h-6 rounded-full  relative">
-                <Image
-                  src={"/images/portfolio/sec-logo.png"}
-                  alt={"sec-logo"}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              </div>
-              <p className=" font-medium text-muted-foreground">
-                Saveetha Engineering College
-              </p>
-            </div>
-            <div className="flex items-center justify-between flex-wrap gap-5">
-              <p className="font-mono text-lg font-semibold tracking-wider">
-                Bachelor of Engineering (ECE)
-              </p>
-              <p className="text-sm text-muted-foreground">2018-2022</p>
-            </div>
-
-            <p className="text-muted-foreground">
-              Graduated with strong technical grounding in hardware-software
-              interfacing, digital electronics, and computer networks.
-            </p>
-          </div>
+          <ContentLayout
+            title={"Education - BE (ECE)"}
+            timeline={"2018-2022"}
+            companyLogo={"/images/experience/sec-logo.webp"}
+            description={
+              " Graduated with strong technical grounding in hardware-software interfacing, digital electronics, and computer networks."
+            }
+            company={"Saveetha Engineering College"}
+          />
+         
         </div>
       </div>
     </>

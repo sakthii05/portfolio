@@ -23,7 +23,7 @@ const FrontLayerContent = () => {
         <h2 className=" text-3xl md:text-3xl font-semibold font-mono ">
           Frontend Developer
         </h2>
-        <p className="w-[90%] md:w-[50%] md:text-lg text-base text-foreground/70  leading-relaxed">
+        <p className="w-[90%] md:w-[50%] text-base text-foreground/70  leading-relaxed">
           Hey, I'm{" "}
           <span className="font-caveat font-medium text:lg  md:text-xl text-foreground tracking-wide">
             Sakthivel

@@ -31,7 +31,7 @@ export const timelineData = [
     timeline: "2025 Jun - Present",
     title: "Freelancer",
     company: "Self-employed",
-    companyLogo: "/images/portfolio/tt-logo.png",
+    companyLogo: "/images/experience/profile-logo.webp",
     description:
       "As a self-employed freelancer, I've worked with clients across different industries, developing project proposals tailored to their needs and bringing those ideas into working products. Along the way, I've completed 4-5 projects for different clients while exploring AI tools and building side projects to experiment with new ideas and technologies.",
     project:{link:"/projects#freelance", show:true},
@@ -40,7 +40,7 @@ export const timelineData = [
     timeline: "2022 Nov - 2025 May",
     title: "Front-End Developer",
     company: "Ticvic Technologies",
-    companyLogo: "/images/portfolio/tt-logo.png",
+    companyLogo: "/images/experience/tt-logo.webp",
     description:
       "Built and optimized production web applications using Next.js, focusing on performance, SEO, and user experience. Developed scalable frontend solutions while solving real-world technical challenges across diverse projects. Continuously explored new technologies and improved development workflows to deliver reliable, high-quality applications.",
     project:{link:"/projects#onsite", show:true},
@@ -49,7 +49,7 @@ export const timelineData = [
     timeline: "2022 Jun - 2022 Oct",
     title: "Trainee (Frontend)",
     company: "Ticvic Technologies",
-    companyLogo: "/images/portfolio/tt-logo.png",
+    companyLogo: "/images/experience/tt-logo.webp",
     description:
       "Built web projects using HTML, CSS, JavaScript, React, and Tailwind CSS. Gained practical experience with React, including components, hooks, state management, and effects. Created responsive websites with reusable components and cross-browser compatibility.",
    project:{link:"/", show:false},

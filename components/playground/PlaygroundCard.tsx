@@ -42,13 +42,20 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
         </div>
       </div>
       {/* Footer: Tech Stack Badges */}
-      <div className=" perspective-midrange p-3 mt-5 flex justify-end gap-2"> 
+      <div className=" perspective-midrange p-3 mt-5 flex justify-end gap-2">
         <Link
           href={"/"}
-          className=" transform-3d px-3 py-1 rounded-3xl inline-flex items-center gap-2 hover:bg-foreground/5 active:-translate-z-3 transition-all duration-200  dark:hover:bg-foreground/5 text-sm inset-shadow-black/50 dark:inset-shadow-white/50 inset-shadow-sm  "
+          className=" transform-3d px-3 py-1 rounded-3xl 0 inline-flex items-center gap-2 hover:bg-foreground/5 active:-translate-z-3 transition-all duration-200  dark:hover:bg-foreground/5 text-sm inset-shadow-black/50 dark:inset-shadow-white/50 inset-shadow-sm  "
         >
           <IoCodeSharp className="size-3" />
           Code
+        </Link>
+        <Link
+          href={"/"}
+          className=" transform-3d px-3 py-1 rounded-3xl 0 inline-flex items-center gap-2 hover:bg-foreground/5 active:-translate-z-3 transition-all duration-200  dark:hover:bg-foreground/5 text-sm inset-shadow-black/50 dark:inset-shadow-white/50 inset-shadow-sm  "
+        >
+          <IoCodeSharp className="size-3" />
+          View
         </Link>
       </div>
     </article>
