@@ -48,10 +48,11 @@ const FloatingNavbar = () => {
   const pathname = usePathname();
   console.log(pathname);
   return (
-    <div className="fixed inset-x-0 bottom-5 z-70 pointer-events-none flex justify-center">
+    <div className="fixed inset-x-0 bottom-0 z-70 pointer-events-none flex justify-center">
+     
       <nav
         className="relative flex h-14  w-fit items-center justify-center gap-1.5 sm:gap-2 overflow-visible 
-        rounded-full bg-background px-3.5 py-2 shadow-[0_0_15px_1px] shadow-foreground/60 backdrop-blur-3xl pointer-events-auto transition-all duration-300 ease-out"
+        rounded-t-4xl bg-background px-3.5 py-2 inset-shadow-sm dark:inset-shadow-white/50 inset-shadow-black/50 backdrop-blur-3xl pointer-events-auto transition-all duration-300 ease-out"
       >
         {navItems.map((item, index) => {
           if ("type" in item && item.type === "divider") {

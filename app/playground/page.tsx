@@ -54,7 +54,7 @@ export default function PlayGroundPage() {
           role="tabpanel"
           aria-labelledby={`playground-tab-${activeTab}`}
           tabIndex={0}
-          className="focus-visible:outline-hidden "
+          className="focus-visible:outline-hidden pb-20 "
         >
           <AnimatePresence mode="wait">
             <motion.div

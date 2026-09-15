@@ -20,12 +20,13 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
     >
       <div>
         <div className="aspect-video w-full bg-background  relative ">
-          <div className=" absolute inset-0 z-10 inset-shadow-black/50 dark:inset-shadow-white/50 inset-shadow-sm rounded-xl pointer-events-none"></div>
+          <div className=" absolute inset-0 z-10 inset-shadow-black/50  inset-shadow-sm rounded-xl pointer-events-none"></div>
           <Image
             src={item.previewSrc}
             fill
             alt={item.title}
-            className="object-contain"
+            className="object-contain rounded-xl "
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw "
           />
         </div>
         <div className=" p-3 space-y-2">
@@ -55,7 +56,7 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
         <Link
           href={item.codeLink}
           target="_blank"
-          className=" transform-3d px-3 py-1 rounded-3xl 0 inline-flex items-center gap-2 hover:bg-foreground/5 active:-translate-z-3 transition-all duration-200  dark:hover:bg-foreground/5 text-sm inset-shadow-black/50 dark:inset-shadow-white/50 inset-shadow-sm  "
+          className=" transform-3d px-3 py-1 text-[#ffffff] bg-[#0a0a0a]  hover:scale-105 rounded-3xl 0 inline-flex items-center gap-2  active:-translate-z-3 transition-all duration-200 text-sm inset-shadow-white/60 inset-shadow-sm  "
         >
           <IoCodeSharp className="size-3" />
           Code
@@ -63,7 +64,7 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
         <Link
           href={item.liveLink}
           target="_blank"
-          className=" transform-3d px-3 py-1 rounded-3xl 0 inline-flex items-center gap-2 hover:bg-foreground/5 active:-translate-z-3 transition-all duration-200  dark:hover:bg-foreground/5 text-sm inset-shadow-black/50 dark:inset-shadow-white/50 inset-shadow-sm  "
+          className="  transform-3d px-3 py-1 text-[#ffffff] bg-[#0a0a0a]  hover:scale-105 rounded-3xl 0 inline-flex items-center gap-2  active:-translate-z-3 transition-all duration-200 text-sm inset-shadow-white/60 inset-shadow-sm   "
         >
           <IoCodeSharp className="size-3" />
           View

@@ -47,7 +47,7 @@ export const PlaygroundTabs: React.FC<PlaygroundTabsProps> = ({
               tabIndex={isActive ? 0 : -1}
               onClick={() => onTabChange(tab.id)}
               onKeyDown={(e) => handleKeyDown(e, idx)}
-              className={`relative px-4 sm:px-6 py-1.5 sm:py-2 text-xs sm:text-sm  tracking-wide rounded-full transition-colors duration-200 cursor-pointer select-none focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-foreground ${
+              className={`relative px-4 sm:px-6 py-2 text-xs sm:text-sm  tracking-wide rounded-full transition-colors duration-200 cursor-pointer select-none focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-foreground ${
                 isActive
                   ? "text-background font-medium"
                   : "text-muted-foreground hover:text-foreground"

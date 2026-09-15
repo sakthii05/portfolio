@@ -19,8 +19,8 @@ const CTAButton = () => {
         className="
               px-4
               py-2
-              bg-foreground
-              text-background
+              bg-black
+              text-white
               tracking-wider
               cursor-pointer
               transition-all
@@ -29,8 +29,8 @@ const CTAButton = () => {
               rounded-3xl
               font-mono
               text-lg
-              dark:inset-shadow-black/50
-              inset-shadow-white/50 inset-shadow-sm
+              inset-shadow-white/50
+              inset-shadow-sm
             "
       >
         Let's Talk
