@@ -5,6 +5,7 @@ import { PlaygroundItem } from "./playgroundData";
 import { PlaygroundPreview } from "./PlaygroundPreviews";
 import Link from "next/link";
 import { IoCodeSharp } from "react-icons/io5";
+import Image from "next/image";
 
 interface PlaygroundCardProps {
   item: PlaygroundItem;
@@ -18,7 +19,15 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
        hover:border-foreground/25 hover:shadow-xs flex flex-col justify-between gap-2"
     >
       <div>
-        <div className="h-60 w-full bg-background inset-shadow-black/50 dark:inset-shadow-white/50 inset-shadow-sm rounded-xl relative"></div>
+        <div className="aspect-video w-full bg-background  relative ">
+          <div className=" absolute inset-0 z-10 inset-shadow-black/50 dark:inset-shadow-white/50 inset-shadow-sm rounded-xl pointer-events-none"></div>
+          <Image
+            src={item.previewSrc}
+            fill
+            alt={item.title}
+            className="object-contain"
+          />
+        </div>
         <div className=" p-3 space-y-2">
           <div className="flex flex-wrap gap-1.5 pb-1">
             {item.technologies.map((tech, i) => (
@@ -44,14 +53,16 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
       {/* Footer: Tech Stack Badges */}
       <div className=" perspective-midrange p-3 mt-5 flex justify-end gap-2">
         <Link
-          href={"/"}
+          href={item.codeLink}
+          target="_blank"
           className=" transform-3d px-3 py-1 rounded-3xl 0 inline-flex items-center gap-2 hover:bg-foreground/5 active:-translate-z-3 transition-all duration-200  dark:hover:bg-foreground/5 text-sm inset-shadow-black/50 dark:inset-shadow-white/50 inset-shadow-sm  "
         >
           <IoCodeSharp className="size-3" />
           Code
         </Link>
         <Link
-          href={"/"}
+          href={item.liveLink}
+          target="_blank"
           className=" transform-3d px-3 py-1 rounded-3xl 0 inline-flex items-center gap-2 hover:bg-foreground/5 active:-translate-z-3 transition-all duration-200  dark:hover:bg-foreground/5 text-sm inset-shadow-black/50 dark:inset-shadow-white/50 inset-shadow-sm  "
         >
           <IoCodeSharp className="size-3" />
