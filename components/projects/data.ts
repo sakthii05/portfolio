@@ -65,7 +65,7 @@ export const stamps: StampType[] = [
       "Designed and developed a premium, design-driven industrial website with a strong focus on brand identity, visual storytelling, and digital experience, using GSAP as the primary animation framework. Crafted responsive layouts and brand-focused.",
     year: "2026",
     series: "Premium",
-    projectLink: "",
+    projectLink: "https://www.mechzenautomation.com/",
     classname: {
       parent: "border-[#023373]",
       child: "border-[#023373] text-[#023373]",

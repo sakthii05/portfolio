@@ -7,6 +7,7 @@ import Link from "next/link";
 import { IoCodeSharp } from "react-icons/io5";
 import Image from "next/image";
 import { FadeImage } from "./FadeImage";
+import { LuSparkles } from "react-icons/lu";
 
 interface PlaygroundCardProps {
   item: PlaygroundItem;
@@ -22,16 +23,15 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
       <div>
         <div className="aspect-video w-full bg-background  relative ">
           <div className=" absolute inset-0 z-10 inset-shadow-black/50  inset-shadow-sm rounded-xl pointer-events-none"></div>
-          {
-            item.previewSrc.type === "Img" ? (
-              <FadeImage
-            src={item.previewSrc.src}
-            fill
-            alt={item.title}
-            className="object-contain rounded-xl "
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw "
-          />
-            ):
+          {item.previewSrc.type === "Img" ? (
+            <FadeImage
+              src={item.previewSrc.src}
+              fill
+              alt={item.title}
+              className="object-contain rounded-xl "
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw "
+            />
+          ) : (
             item.previewSrc.type === "Video" && (
               <video
                 src={item.previewSrc.src}
@@ -41,7 +41,7 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
                 className="object-contain rounded-xl"
               />
             )
-          }
+          )}
         </div>
         <div className=" p-3 space-y-2">
           <div className="flex flex-wrap gap-1.5 pb-1">
@@ -58,7 +58,12 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
             ))}
           </div>
           <h3 className="font-mono text-xl sm:text-2xl font-normal tracking-tight text-foreground">
-            {item.title}
+            {item.title}{" "}
+            {item.tag.show && (
+              <span className="px-2 ml-2 py-1 rounded-full text-xs font-sans border border-foreground/50">
+                {item.tag.lable}
+              </span>
+            )}
           </h3>
           <p className="text-sm text-muted-foreground leading-relaxed">
             {item.description}

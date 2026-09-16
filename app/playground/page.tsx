@@ -11,7 +11,7 @@ import {
 } from "@/components/playground/playgroundData";
 
 export default function PlayGroundPage() {
-  const [activeTab, setActiveTab] = useState<PlaygroundCategory>("hero");
+  const [activeTab, setActiveTab] = useState<PlaygroundCategory>("component");
 
   const filteredItems = playgroundItems.filter(
     (item) => item.category === activeTab,
@@ -40,7 +40,7 @@ export default function PlayGroundPage() {
           <div className="flex items-center justify-between border-b border-foreground/10 pb-3 pt-2 text-xs  text-muted-foreground">
             <span>
               SHOWING:{" "}
-              <strong className="text-foreground font-medium font-mono tracking-wider uppercase">
+              <strong className="text-foreground font-semibold font-mono tracking-wider uppercase">
                 {currentTabMeta?.label}
               </strong>
             </span>

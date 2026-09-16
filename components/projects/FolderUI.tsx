@@ -128,6 +128,7 @@ const FolderUI = () => {
                 alt="u-clip"
                 height={24}
                 width={24}
+                className="w-auto"
               />
             </div>
             <div className=" absolute flex h-fit top-24 -left-3 w-fit items-center justify-center">
