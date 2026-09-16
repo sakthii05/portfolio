@@ -12,7 +12,7 @@ import { StampType,stamps } from "./data";
 // Default scale for stamps in their resting state
 const RESTING_SCALE = 0.9;
 // Scale for the active (zoomed) stamp
-const ACTIVE_SCALE = 1.9;
+const ACTIVE_SCALE = 1.6;
 // Target position: 20% from top of viewport, centered horizontally
 const ACTIVE_TOP_VH = 0.3;
 
@@ -258,39 +258,16 @@ export default function StampStack() {
             }}
           >
             <div className="h-2 w-full"></div>
-           
 
-            <h2
-              className="
+            <div className="flex justify-between gap-3">
+              <h2
+                className="
                 text-[21px] font-medium
                 tracking-wide text-white uppercase
               "
-            >
-              {activeStamp.title}
-            </h2>
-
-            <p
-              className="
-                mt-3 text-sm
-                leading-[1.55] text-white/70 font-normal
-              "
-            >
-              {activeStamp.description}
-            </p>
-
-            <div
-              className="
-                mt-4 grid grid-cols-3
-                border-t border-white/10 pt-3
-                text-sm
-                text-white/70
-              "
-            >
-              <span className="font-medium ">{activeStamp.year}</span>
-              <span className="text-center uppercase ">
-                {activeStamp.series}
-              </span>
-
+              >
+                {activeStamp.title}
+              </h2>
               <Link
                 className="text-right hover:underline hover:underline-offset-4 text-white flex gap-3 justify-end items-center"
                 href={activeStamp.projectLink}
@@ -300,6 +277,16 @@ export default function StampStack() {
                 <FiExternalLink className="size-4" />
               </Link>
             </div>
+
+            <p
+              className="
+                mt-3 text-sm
+                leading-relaxed text-white/70 font-normal
+              "
+            >
+              {activeStamp.description}
+            </p>
+
           </motion.div>
         )}
       </AnimatePresence>

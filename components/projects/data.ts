@@ -62,7 +62,7 @@ export const stamps: StampType[] = [
     subtext:
       "Engineering design solutions for special-purpose machines, robotics, production automation.",
     description:
-      "Designed and developed a premium, design-driven industrial website with a strong focus on brand identity, visual storytelling, and digital experience, using GSAP as the primary animation framework. Crafted responsive layouts and brand-focused. Provided end-to-end digital support and ongoing website maintenance.",
+      "Designed and developed a premium, design-driven industrial website with a strong focus on brand identity, visual storytelling, and digital experience, using GSAP as the primary animation framework. Crafted responsive layouts and brand-focused.",
     year: "2026",
     series: "Premium",
     projectLink: "",

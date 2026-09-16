@@ -75,15 +75,6 @@ const FolderUI = () => {
         {/* file */}
         <div
           className="relative h-60 w-50 transform-3d group"
-          onMouseOver={() => {
-            setIsFolderOpen(true);
-          }}
-          onMouseLeave={() => {
-            setIsFolderOpen(false);
-          }}
-          onClick={() => {
-            setIsFolderOpen((prev) => !prev);
-          }}
         >
           {/* file back */}
           <div className="absolute inset-0 rounded-r-2xl rounded-l-lg bg-[#F28444]" />
@@ -124,6 +115,9 @@ const FolderUI = () => {
 
           {/* file front */}
           <motion.div
+            onClick={() => {
+              setIsFolderOpen((prev) => !prev);
+            }}
             style={{ transformOrigin: "5px" }}
             className={`absolute  text-foreground dark:text-background  z-10 p-4 inset-0 rounded-r-2xl rounded-l-lg bg-[#D9843B] inset-shadow-black/40 inset-shadow-sm transition-all duration-700 
               ${isFolderOpen || activeProject ? "-rotate-y-50  translate-z-6" : ""}`}

@@ -46,7 +46,7 @@ const navItems: NavItem[] = [
 
 const FloatingNavbar = () => {
   const pathname = usePathname();
-  console.log(pathname);
+
   return (
     <div className="fixed inset-x-0 bottom-0 z-70 pointer-events-none flex justify-center">
      

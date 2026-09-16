@@ -5,7 +5,7 @@ export interface PlaygroundItem {
   title: string; 
   codeLink:string,
   liveLink:string,
-  previewSrc:string,
+  previewSrc:{type:'Img'|'Video',src:string},
   category: PlaygroundCategory;
   tag: {lable:string, show:boolean};
   description: string;
@@ -32,7 +32,7 @@ export const playgroundItems: PlaygroundItem[] = [
     technologies: ["AI-sdk","Langchain","Zod"],
     liveLink:"https://ai-learning-beta.vercel.app/fitnessplan",
     codeLink:"https://github.com/sakthii05/ai-learning/tree/main/src/components/fitnessplan",
-    previewSrc:"https://ik.imagekit.io/sakthidev/aiapp/fitnessapp.webp",
+    previewSrc:{type:'Img',src:"https://ik.imagekit.io/sakthidev/aiapp/fitnessapp.webp"},
   },
   {
     id: "chat-bot",
@@ -44,7 +44,7 @@ export const playgroundItems: PlaygroundItem[] = [
     technologies: ["React-markdown","AI-sdk","Gemini-API"],
      liveLink:"https://ai-learning-beta.vercel.app/aichat",
     codeLink:"https://github.com/sakthii05/ai-learning/tree/main/src/components/chatUI",
-    previewSrc:"https://ik.imagekit.io/sakthidev/aiapp/chatapp.webp",
+    previewSrc:{type:'Img',src:"https://ik.imagekit.io/sakthidev/aiapp/chatapp.webp"},
   },
 
 ];

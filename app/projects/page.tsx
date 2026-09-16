@@ -28,7 +28,7 @@ export default function ProjectPage() {
 
       <ProjectSection
         title=" Onsite"
-        subtext="Engineering scalable systems, design infrastructure, and mission-critical telemetry at Ticvic Technologies."
+        subtext="Engineering scalable systems, design infrastructure, and mission-critical telemetry at Ticvic Technologies. (Click to open the folder)"
         numberOfProjects={3}
         sectionId="onsite"
       >
