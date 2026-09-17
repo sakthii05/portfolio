@@ -30,9 +30,8 @@ export const playgroundItems: PlaygroundItem[] = [
     technologies: ["Motion-React","Tailwindcss"],
     liveLink:"https://playground-demo-dun.vercel.app/window-shutter",
     codeLink:"https://github.com/sakthii05/playground-demo/blob/main/src/app/window-shutter/page.tsx",
-    previewSrc:{type:'Video',src:"https://ik.imagekit.io/sakthidev/portfolio/components/window-shutter.mp4"},
+    previewSrc:{type:'Video',src:"https://ik.imagekit.io/sakthidev/portfolio/components/window-shutter.webm"},
   },
-
   // --- AI APPS TAB ---
   {
     id: "fitness",
