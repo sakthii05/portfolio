@@ -20,11 +20,23 @@ export const playgroundTabs: { id: PlaygroundCategory; label: string; count: num
 
 export const playgroundItems: PlaygroundItem[] = [
   //UI components
+  {
+    id: "stamps",
+    title: "Digital Stamps",
+    category: "component",
+    tag:{lable:"Trending",show:true},
+    description:
+      "A randomly stacked stamps component that allows users to zoom and shuffle the stamps",
+    technologies: ["Motion-React","Tailwindcss",],
+    liveLink:"https://playground-demo-dun.vercel.app/stamps",
+    codeLink:"https://github.com/sakthii05/playground-demo/blob/main/src/app/stamps/page.tsx",
+    previewSrc:{type:'Video',src:"https://ik.imagekit.io/sakthidev/portfolio/components/stamp.webm"},
+  },
 {
     id: "window-shutter",
     title: "Window Shutter",
     category: "component",
-    tag:{lable:"Trending",show:true},
+    tag:{lable:"Trending",show:false},
     description:
       "An interactive window shutter component that smoothly opens and closes to reveal the video beneath. Built for an immersive, tactile experience with smooth motion and seamless transitions.",
     technologies: ["Motion-React","Tailwindcss"],

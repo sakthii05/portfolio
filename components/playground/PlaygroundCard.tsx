@@ -57,10 +57,10 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
               </span>
             ))}
           </div>
-          <h3 className="font-mono text-xl sm:text-2xl font-normal tracking-tight text-foreground">
+          <h3 className="font-mono text-xl sm:text-2xl font-normal inline-flex gap-3 items-center tracking-tight text-foreground">
             {item.title}{" "}
             {item.tag.show && (
-              <span className="px-2 ml-2 py-1 rounded-full text-xs font-sans border border-foreground/50">
+              <span className=" py-1 px-3 rounded-full text-xs font-sans border border-foreground/50">
                 {item.tag.lable}
               </span>
             )}
