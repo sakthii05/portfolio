@@ -1,13 +1,10 @@
 "use client";
-
 import React from "react";
 import { PlaygroundItem } from "./playgroundData";
-import { PlaygroundPreview } from "./PlaygroundPreviews";
 import Link from "next/link";
 import { IoCodeSharp } from "react-icons/io5";
-import Image from "next/image";
 import { FadeImage } from "./FadeImage";
-import { LuSparkles } from "react-icons/lu";
+import PreviewVideo from "./PreviewVideo";
 
 interface PlaygroundCardProps {
   item: PlaygroundItem;
@@ -33,13 +30,8 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
             />
           ) : (
             item.previewSrc.type === "Video" && (
-              <video
-                src={item.previewSrc.src}
-                autoPlay
-                muted
-                loop
-                className="object-contain rounded-xl"
-              />
+              <PreviewVideo src={item.previewSrc.src} />
+        
             )
           )}
         </div>
