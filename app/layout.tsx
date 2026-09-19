@@ -47,6 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body>
         <ThemeProviders>
+          <div className="noise-overlay"></div>
           <PageTransitionWrapper>
             <Layout>{children}</Layout>
           </PageTransitionWrapper>
