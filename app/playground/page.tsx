@@ -43,6 +43,9 @@ export default function PlayGroundPage() {
               <strong className="text-foreground font-semibold font-mono tracking-wider uppercase">
                 {currentTabMeta?.label}
               </strong>
+              {(activeTab === "component" || activeTab === "hero") && (
+                <span className="font-caveat pb-3 text-sm">{` (Hover to preview)`}</span>
+              )}
             </span>
             <span>{filteredItems.length} Experiments</span>
           </div>
