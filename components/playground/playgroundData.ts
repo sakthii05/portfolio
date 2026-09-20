@@ -14,7 +14,7 @@ export interface PlaygroundItem {
 
 export const playgroundTabs: { id: PlaygroundCategory; label: string; count: number }[] = [
   // { id: "hero", label: "Hero", count: 0 },
-  { id: "component", label: "Components", count: 1 },
+  { id: "component", label: "Components", count: 2 },
   { id: "ai", label: "AI Apps", count: 2 },
 ];
 
