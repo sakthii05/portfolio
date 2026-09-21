@@ -3,7 +3,7 @@ import FloatingNavbar from "./FloatingNavBar";
 
 const Layout = (props: { children: ReactNode }) => {
   return (
-    <main className=" w-full flex justify-center font-sans items-start  overflow-x-hidden">
+    <main className=" w-full flex justify-center font-sans items-start overflow-hidden">
       <div className="w-full max-w-350">
         {props.children}
         <FloatingNavbar />
