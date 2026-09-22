@@ -1,4 +1,4 @@
-import PaperTrace from '@/components/notfound/PaperTraceTest'
+import PaperTrace from '@/components/pagenotfound/PaperTraceTest'
 import React from 'react'
 
 const page = () => {
