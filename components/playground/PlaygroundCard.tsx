@@ -5,6 +5,7 @@ import Link from "next/link";
 import { IoCodeSharp } from "react-icons/io5";
 import { FadeImage } from "./FadeImage";
 import PreviewVideo from "./PreviewVideo";
+import { PiEye } from "react-icons/pi";
 
 interface PlaygroundCardProps {
   item: PlaygroundItem;
@@ -77,7 +78,7 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
           target="_blank"
           className="  transform-3d px-3 py-1 text-[#ffffff] bg-[#0a0a0a]  hover:scale-105 rounded-3xl 0 inline-flex items-center gap-2  active:-translate-z-3 transition-all duration-200 text-sm inset-shadow-white/60 inset-shadow-sm   "
         >
-          <IoCodeSharp className="size-3" />
+          <PiEye className="size-4" />
           View
         </Link>
       </div>

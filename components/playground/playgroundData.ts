@@ -14,17 +14,29 @@ export interface PlaygroundItem {
 
 export const playgroundTabs: { id: PlaygroundCategory; label: string; count: number }[] = [
   // { id: "hero", label: "Hero", count: 0 },
-  { id: "component", label: "Components", count: 2 },
+  { id: "component", label: "Components", count: 3 },
   { id: "ai", label: "AI Apps", count: 2 },
 ];
 
 export const playgroundItems: PlaygroundItem[] = [
   //UI components
   {
+    id: "drawing",
+    title: "Trace Drawing",
+    category: "component",
+    tag:{lable:"Latest",show:true},
+    description:
+      "A canvas-based tracing component built with HTML Canvas for interactive drawing. Upload a reference image, place it behind the canvas, and trace directly over it. Color and brush Size are Customizable",
+    technologies: ["HTML - canvas","Motion-React"],
+    liveLink:"https://playground-demo-dun.vercel.app/trace-drawing",
+    codeLink:"https://github.com/sakthii05/playground-demo/blob/main/src/app/trace-drawing/page.tsx",
+    previewSrc:{type:'Video',src:"https://ik.imagekit.io/sakthidev/portfolio/components/trace-drawing.webm"},
+  },
+  {
     id: "stamps",
     title: "Digital Stamps",
     category: "component",
-    tag:{lable:"Trending",show:true},
+    tag:{lable:"Trending",show:false},
     description:
       "A randomly stacked stamps component that allows users to zoom and shuffle the stamps",
     technologies: ["Motion-React","Tailwindcss",],
