@@ -30,8 +30,7 @@ interface Stroke {
   points: Point[];
   color: string;
 }
-
-const COLORS = ["#111827", "#DC2626", "#2563EB", "#16A34A", "#9333EA"];
+// "#111827";
 const HANDLE_SIZE = 20;
 const STROKE_WIDTH = 2;
 const traceImage = [
@@ -67,7 +66,6 @@ const PaperTrace = () => {
   const [selectedImage, setSelectedImage] = useState(traceImage[2]);
 
   // Drawing history, redo stack, color
-  const [selectedColor, setSelectedColor] = useState(COLORS[0]);
   const [history, setHistory] = useState<Stroke[]>([]);
   const [redoHistory, setRedoHistory] = useState<Stroke[]>([]);
   const currentStrokeRef = useRef<Point[]>([]);
@@ -181,11 +179,11 @@ const PaperTrace = () => {
     const ctx = canvasRef.current.getContext("2d");
     if (ctx) {
       ctx.save();
-      ctx.strokeStyle = selectedColor;
+      ctx.strokeStyle = "#111827";
       ctx.lineWidth = STROKE_WIDTH;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
-      ctx.shadowColor = selectedColor;
+      ctx.shadowColor = "#111827";
       ctx.shadowBlur = 1.5;
       ctx.beginPath();
       ctx.moveTo(point.x, point.y);
@@ -224,11 +222,11 @@ const PaperTrace = () => {
     const len = pts.length;
 
     ctx.save();
-    ctx.strokeStyle = selectedColor;
+    ctx.strokeStyle = "#111827";
     ctx.lineWidth = STROKE_WIDTH;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.shadowColor = selectedColor;
+    ctx.shadowColor = "#111827";
     ctx.shadowBlur = 1.5;
 
     if (len >= 3) {
@@ -318,7 +316,7 @@ const PaperTrace = () => {
       if (currentStrokeRef.current.length > 0) {
         const newStroke: Stroke = {
           points: [...currentStrokeRef.current],
-          color: selectedColor,
+          color: "#111827",
         };
         const newHistory = [...history, newStroke];
         setHistory(newHistory);
@@ -416,11 +414,6 @@ const PaperTrace = () => {
     }
   };
 
-  // Color Change
-  const handleColorChange = (color: string) => {
-    setSelectedColor(color);
-  };
-
   // Export as PNG (canvas + note section)
   const handleExport = async () => {
     if (!exportRef.current) return;
@@ -482,22 +475,6 @@ const PaperTrace = () => {
           title="Snap paper to target"
         />
         <div className="flex gap-3 items-center">
-          {/* Color Swatch Selectors */}
-          {/* <div className="flex gap-1.5 items-center px-2 py-1 rounded-lg bg-foreground/5 dark:bg-foreground/40 border border-neutral-200 dark:border-neutral-800 shadow-inner">
-            {COLORS.map((color) => (
-              <button
-                key={color}
-                onClick={() => handleColorChange(color)}
-                style={{ backgroundColor: color }}
-                className={`size-5 rounded-full cursor-pointer transition-all border-2 ${
-                  selectedColor === color
-                    ? "ring-2 ring-offset-1 ring-indigo-500 scale-110 border-white"
-                    : "border-transparent hover:scale-105"
-                }`}
-                title={`Color: ${color}`}
-              />
-            ))}
-          </div> */}
           <ToolBarBtn
             label={<IoMdImages className="size-5" />}
             onBtnClick={() => {
