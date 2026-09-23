@@ -5,10 +5,19 @@ import {
   useDragControls,
   useMotionValue,
 } from "framer-motion";
-import Image from "next/image";
-import React, { ReactNode, useEffect, useRef, useState } from "react";
+import html2canvas from "html2canvas-pro";
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { LuRedo, LuUndo } from "react-icons/lu";
 import { MdOutlineFiberNew } from "react-icons/md";
+import { FiDownload } from "react-icons/fi";
+import Image from "next/image";
+import { IoMdImages } from "react-icons/io";
 
 interface Point {
   x: number;
@@ -23,95 +32,170 @@ interface Stroke {
 }
 
 const COLORS = ["#111827", "#DC2626", "#2563EB", "#16A34A", "#9333EA"];
+const HANDLE_SIZE = 20;
+const STROKE_WIDTH = 2;
+const traceImage = [
+  "/images/trace-image/1.webp",
+  "/images/trace-image/2.webp",
+  "/images/trace-image/3.webp",
+];
 
-const HANDLE_SIZE = 40;
+// Attempt to smooth input noise from raw coordinate data using weighted average
+const smoothPoint = (
+  prev: Point,
+  current: Point,
+  smoothingFactor = 0.35,
+): Point => ({
+  x: prev.x + (current.x - prev.x) * smoothingFactor,
+  y: prev.y + (current.y - prev.y) * smoothingFactor,
+  pressure: current.pressure,
+  timestamp: current.timestamp,
+});
 
 const PaperTrace = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const traceContainerRef = useRef<HTMLDivElement>(null);
   const paperContainerRef = useRef<HTMLDivElement>(null);
+  const exportRef = useRef<HTMLDivElement>(null);
   const activePointerIdRef = useRef<number | null>(null);
+
   const [isDrawing, setIsDrawing] = useState(false);
   const [isDragArea, setIsDragArea] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isSnappedOnTarget, setIsSnappedOnTarget] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(traceImage[2]);
 
+  // Drawing history, redo stack, color
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
   const [history, setHistory] = useState<Stroke[]>([]);
   const [redoHistory, setRedoHistory] = useState<Stroke[]>([]);
   const currentStrokeRef = useRef<Point[]>([]);
   const historyRef = useRef<Stroke[]>([]);
+  const lastSmoothedPointRef = useRef<Point | null>(null);
 
-  // Initialize Canvas resolution matching CSS bounds
+  // Keep ref in sync
+  useEffect(() => {
+    historyRef.current = history;
+  }, [history]);
+
+  // Draw a single smooth stroke using quadratic Bézier curves
+  const drawSmoothStroke = useCallback(
+    (ctx: CanvasRenderingContext2D, stroke: Stroke) => {
+      const { points, color } = stroke;
+      if (points.length === 0) return;
+
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = STROKE_WIDTH;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      // Slight shadow for soft brush feel
+      ctx.shadowColor = color;
+      ctx.shadowBlur = 1.5;
+
+      ctx.beginPath();
+
+      if (points.length === 1) {
+        // Single dot
+        ctx.arc(points[0].x, points[0].y, STROKE_WIDTH / 2, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.restore();
+        return;
+      }
+
+      if (points.length === 2) {
+        ctx.moveTo(points[0].x, points[0].y);
+        ctx.lineTo(points[1].x, points[1].y);
+        ctx.stroke();
+        ctx.restore();
+        return;
+      }
+
+      // Quadratic Bézier for 3+ points → silky smooth curves
+      ctx.moveTo(points[0].x, points[0].y);
+
+      for (let i = 1; i < points.length - 1; i++) {
+        const midX = (points[i].x + points[i + 1].x) / 2;
+        const midY = (points[i].y + points[i + 1].y) / 2;
+        ctx.quadraticCurveTo(points[i].x, points[i].y, midX, midY);
+      }
+
+      // Connect to the last point
+      const last = points[points.length - 1];
+      const secondLast = points[points.length - 2];
+      ctx.quadraticCurveTo(secondLast.x, secondLast.y, last.x, last.y);
+
+      ctx.stroke();
+      ctx.restore();
+    },
+    [],
+  );
+
+  // Redraw complete history
+  const redrawCanvas = useCallback(
+    (strokesList: Stroke[]) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      strokesList.forEach((stroke) => drawSmoothStroke(ctx, stroke));
+    },
+    [drawSmoothStroke],
+  );
+
+  // Init canvas resolution + redraw on resize
   useEffect(() => {
     const initCanvas = () => {
       if (canvasRef.current) {
         const rect = canvasRef.current.getBoundingClientRect();
         canvasRef.current.width = rect.width;
         canvasRef.current.height = rect.height;
+        redrawCanvas(historyRef.current);
       }
     };
     initCanvas();
     window.addEventListener("resize", initCanvas);
     return () => window.removeEventListener("resize", initCanvas);
-  }, []);
+  }, [redrawCanvas]);
 
-  // Synchronize dynamic history changes to ref for resize redraw reference
-  useEffect(() => {
-    historyRef.current = history;
-  }, [history]);
-
-  // Redraw complete paths from stack
-  const redrawCanvas = (strokesList: Stroke[]) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    strokesList.forEach((stroke) => {
-      if (stroke.points.length === 0) return;
-      ctx.beginPath();
-      ctx.strokeStyle = stroke.color;
-      ctx.lineWidth = 3;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-
-      ctx.moveTo(stroke.points[0].x, stroke.points[0].y);
-      for (let i = 1; i < stroke.points.length; i++) {
-        ctx.lineTo(stroke.points[i].x, stroke.points[i].y);
-      }
-      ctx.stroke();
-    });
-  };
+  // ------- Drawing handlers -------
 
   const startDrawing = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (!canvasRef.current) return;
     const rect = canvasRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const point: Point = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      pressure: e.pressure,
+      timestamp: Date.now(),
+    };
 
     setIsDrawing(true);
-
-    // Begin stroke tracking
-    currentStrokeRef.current = [
-      { x, y, pressure: e.pressure, timestamp: Date.now() },
-    ];
+    currentStrokeRef.current = [point];
+    lastSmoothedPointRef.current = point;
 
     const ctx = canvasRef.current.getContext("2d");
     if (ctx) {
-      ctx.lineWidth = 3;
+      ctx.save();
+      ctx.strokeStyle = selectedColor;
+      ctx.lineWidth = STROKE_WIDTH;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
-      ctx.strokeStyle = selectedColor;
+      ctx.shadowColor = selectedColor;
+      ctx.shadowBlur = 1.5;
       ctx.beginPath();
-      ctx.moveTo(x, y);
+      ctx.moveTo(point.x, point.y);
+      ctx.restore();
     }
   };
 
   const stopDrawing = () => {
     setIsDrawing(false);
+    lastSmoothedPointRef.current = null;
     canvasRef.current?.getContext("2d")?.beginPath();
   };
 
@@ -120,35 +204,64 @@ const PaperTrace = () => {
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
     const rect = canvasRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
 
-    // Track active mouse coordinate trajectory
-    currentStrokeRef.current.push({
-      x,
-      y,
+    const rawPoint: Point = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
       pressure: e.pressure,
       timestamp: Date.now(),
-    });
+    };
 
-    ctx.lineWidth = 3;
+    // Smooth input jitter
+    const prev = lastSmoothedPointRef.current || rawPoint;
+    const smoothed = smoothPoint(prev, rawPoint, 0.35);
+    lastSmoothedPointRef.current = smoothed;
+
+    currentStrokeRef.current.push(smoothed);
+
+    // Live drawing using quadratic curves as we go
+    const pts = currentStrokeRef.current;
+    const len = pts.length;
+
+    ctx.save();
+    ctx.strokeStyle = selectedColor;
+    ctx.lineWidth = STROKE_WIDTH;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-    ctx.strokeStyle = selectedColor;
-    ctx.lineTo(x, y);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(x, y);
+    ctx.shadowColor = selectedColor;
+    ctx.shadowBlur = 1.5;
+
+    if (len >= 3) {
+      // Use last 3 points for a live quadratic segment
+      const p0 = pts[len - 3];
+      const p1 = pts[len - 2];
+      const p2 = pts[len - 1];
+
+      const mid1X = (p0.x + p1.x) / 2;
+      const mid1Y = (p0.y + p1.y) / 2;
+      const mid2X = (p1.x + p2.x) / 2;
+      const mid2Y = (p1.y + p2.y) / 2;
+
+      ctx.beginPath();
+      ctx.moveTo(mid1X, mid1Y);
+      ctx.quadraticCurveTo(p1.x, p1.y, mid2X, mid2Y);
+      ctx.stroke();
+    } else if (len === 2) {
+      ctx.beginPath();
+      ctx.moveTo(pts[0].x, pts[0].y);
+      ctx.lineTo(pts[1].x, pts[1].y);
+      ctx.stroke();
+    }
+
+    ctx.restore();
   };
 
   const dragControls = useDragControls();
 
   const isOnDragHandle = (e: React.PointerEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
-
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
     const width = rect.width;
     const height = rect.height;
 
@@ -163,7 +276,7 @@ const PaperTrace = () => {
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
     e.preventDefault();
     const canvas = e.currentTarget;
-    // Drag area
+
     if (isOnDragHandle(e)) {
       canvas.releasePointerCapture?.(e.pointerId);
       setIsDrawing(false);
@@ -172,10 +285,9 @@ const PaperTrace = () => {
       dragControls.start(e);
       return;
     }
-    // Drawing area
+
     activePointerIdRef.current = e.pointerId;
     setIsDrawing(true);
-    // Keep receiving pointer events even outside canvas
     canvas.setPointerCapture(e.pointerId);
     setIsDragArea(false);
     startDrawing(e);
@@ -183,20 +295,18 @@ const PaperTrace = () => {
 
   const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     checkOverlapAndSnap();
-    // Update cursor when not drawing
     if (!isDrawing) {
       setIsDragArea(isOnDragHandle(e));
       return;
     }
-    // Continue drawing
     draw(e);
   };
 
   const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
-    // Let the DOM update its bounds, then evaluate 98% overlap using standard layout rects
     requestAnimationFrame(() => {
       checkOverlapAndSnap();
     });
+
     if (activePointerIdRef.current === e.pointerId) {
       setIsDrawing(false);
       activePointerIdRef.current = null;
@@ -205,29 +315,29 @@ const PaperTrace = () => {
         e.currentTarget.releasePointerCapture(e.pointerId);
       }
 
-      // Save complete raw stroke to stack history
       if (currentStrokeRef.current.length > 0) {
         const newStroke: Stroke = {
           points: [...currentStrokeRef.current],
           color: selectedColor,
         };
-        setHistory((prev) => [...prev, newStroke]);
-        setRedoHistory([]); // Reset Redo stack after a new action
+        const newHistory = [...history, newStroke];
+        setHistory(newHistory);
+        setRedoHistory([]);
         currentStrokeRef.current = [];
+
+        // Full redraw to ensure Bézier quality on completed stroke
+        redrawCanvas(newHistory);
       }
 
       stopDrawing();
     }
   };
 
-  const x = useMotionValue(150);
-  const y = useMotionValue(10);
+  const xVal = useMotionValue(150);
+  const yVal = useMotionValue(10);
 
-  // Shared Helper: Calculates exact target position & snaps to it
   const executeSnapToTarget = () => {
-    if (!paperContainerRef.current || !traceContainerRef.current) {
-      return;
-    }
+    if (!paperContainerRef.current || !traceContainerRef.current) return;
 
     const paper = paperContainerRef.current.getBoundingClientRect();
     const target = traceContainerRef.current.getBoundingClientRect();
@@ -235,13 +345,13 @@ const PaperTrace = () => {
     const dx = target.left - paper.left;
     const dy = target.top - paper.top;
 
-    animate(x, x.get() + dx, {
+    animate(xVal, xVal.get() + dx, {
       type: "spring",
       stiffness: 500,
       damping: 35,
     });
 
-    animate(y, y.get() + dy, {
+    animate(yVal, yVal.get() + dy, {
       type: "spring",
       stiffness: 500,
       damping: 35,
@@ -250,15 +360,12 @@ const PaperTrace = () => {
     setIsSnappedOnTarget(true);
   };
 
-  // Evaluates overlap percentage against standard 98% rule
   const checkOverlapAndSnap = () => {
     if (!paperContainerRef.current || !traceContainerRef.current) return;
 
-    // Measure live bounding boxes at the moment of release
     const r1 = paperContainerRef.current.getBoundingClientRect();
     const r2 = traceContainerRef.current.getBoundingClientRect();
 
-    // Calculate 2D plane intersection
     const overlapW = Math.max(
       0,
       Math.min(r1.right, r2.right) - Math.max(r1.left, r2.left),
@@ -270,38 +377,35 @@ const PaperTrace = () => {
     const overlapArea = overlapW * overlapH;
     const targetArea = r2.width * r2.height;
 
-    // 85% Overlap threshold check
     if (targetArea > 0 && overlapArea / targetArea >= 0.85 && !isDragging) {
       executeSnapToTarget();
     } else {
-      setIsSnappedOnTarget(false); // Re-enables button if dragged away
+      setIsSnappedOnTarget(false);
     }
   };
 
-  // Undo features
+  // Undo
   const handleUndo = () => {
     if (history.length === 0) return;
     const newHistory = history.slice(0, -1);
     const lastStroke = history[history.length - 1];
-
     setHistory(newHistory);
     setRedoHistory((prev) => [lastStroke, ...prev]);
     redrawCanvas(newHistory);
   };
 
-  // Redo features
+  // Redo
   const handleRedo = () => {
     if (redoHistory.length === 0) return;
     const strokeToRestore = redoHistory[0];
     const newRedoHistory = redoHistory.slice(1);
     const newHistory = [...history, strokeToRestore];
-
     setHistory(newHistory);
     setRedoHistory(newRedoHistory);
     redrawCanvas(newHistory);
   };
 
-  // Reset Canvas Paper features
+  // New Paper
   const handleNewPaper = () => {
     setHistory([]);
     setRedoHistory([]);
@@ -312,20 +416,55 @@ const PaperTrace = () => {
     }
   };
 
+  // Color Change
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
   };
+
+  // Export as PNG (canvas + note section)
+  const handleExport = async () => {
+    if (!exportRef.current) return;
+    setIsExporting(true);
+
+    try {
+      // Small delay to let state render the export view
+      await new Promise((r) => setTimeout(r, 100));
+
+      const exportCanvas = await html2canvas(exportRef.current, {
+        backgroundColor: "#ffffff",
+        scale: 2,
+        useCORS: true,
+        logging: false,
+      });
+
+      const link = document.createElement("a");
+      link.download = `paper-trace-${Date.now()}.png`;
+      link.href = exportCanvas.toDataURL("image/png");
+      link.click();
+    } catch (err) {
+      console.error("Export failed:", err);
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   const ToolBarBtn = (props: {
     label: ReactNode;
     onBtnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     disabled?: boolean;
+    title?: string;
   }) => {
-    const { label, onBtnClick, disabled } = props;
+    const { label, onBtnClick, disabled, title } = props;
     return (
       <button
         onClick={onBtnClick}
         disabled={disabled}
-        className={`px-2 py-1 text-xs rounded-lg ${disabled ? "cursor-not-allowed opacity-30 " : "cursor-pointer active:translate-y-0.5"} bg-foreground/5 dark:bg-foreground/40 inset-shadow-sm inset-shadow-black/20 dark:inset-shadow-white/20  transition-all duration-75`}
+        title={title}
+        className={`px-2 py-1 text-xs rounded-lg ${
+          disabled
+            ? "cursor-not-allowed opacity-30 "
+            : "cursor-pointer active:translate-y-0.5"
+        } bg-foreground/5 dark:bg-foreground/40 inset-shadow-sm inset-shadow-black/20 dark:inset-shadow-white/20 transition-all duration-75`}
       >
         {label}
       </button>
@@ -333,87 +472,213 @@ const PaperTrace = () => {
   };
 
   return (
-    <div className=" flex flex-col items-center justify-center pt-3 gap-1 ">
-      <div className="h-10 w-full flex justify-between items-center">
+    <div className="flex flex-col items-center justify-center pt-3 md:pt-7 gap-1">
+      {/* Toolbar */}
+      <div className="h-10 w-full flex justify-between items-center px-2">
         <ToolBarBtn
           label="Lay the Paper"
           onBtnClick={() => executeSnapToTarget()}
           disabled={isSnappedOnTarget}
+          title="Snap paper to target"
         />
         <div className="flex gap-3 items-center">
           {/* Color Swatch Selectors */}
-          <div className="flex gap-1.5 items-center px-2 py-1 rounded-lg bg-foreground/5 dark:bg-foreground/40 border border-neutral-200 dark:border-neutral-800 shadow-inner">
+          {/* <div className="flex gap-1.5 items-center px-2 py-1 rounded-lg bg-foreground/5 dark:bg-foreground/40 border border-neutral-200 dark:border-neutral-800 shadow-inner">
             {COLORS.map((color) => (
               <button
                 key={color}
                 onClick={() => handleColorChange(color)}
                 style={{ backgroundColor: color }}
-                className={`size-5 rounded-full cursor-pointer transition-all border ${
+                className={`size-5 rounded-full cursor-pointer transition-all border-2 ${
                   selectedColor === color
-                    ? "ring-2 ring-indigo-500 scale-110 border-white"
+                    ? "ring-2 ring-offset-1 ring-indigo-500 scale-110 border-white"
                     : "border-transparent hover:scale-105"
                 }`}
-                title={`Set stroke color to ${color}`}
+                title={`Color: ${color}`}
               />
             ))}
-          </div>
+          </div> */}
+          <ToolBarBtn
+            label={<IoMdImages className="size-5" />}
+            onBtnClick={() => {
+              setSelectedImage((current) => {
+                const index = traceImage.indexOf(current);
+                return traceImage[(index + 1) % traceImage.length];
+              });
+            }}
+            title="Change Image"
+          />
+
           <ToolBarBtn
             label={<LuUndo className="size-5" />}
             onBtnClick={() => handleUndo()}
             disabled={history.length === 0}
+            title="Undo"
           />
           <ToolBarBtn
             label={<LuRedo className="size-5" />}
             onBtnClick={() => handleRedo()}
             disabled={redoHistory.length === 0}
+            title="Redo"
           />
           <ToolBarBtn
             label={<MdOutlineFiberNew className="size-5" />}
             onBtnClick={() => handleNewPaper()}
+            title="New Paper"
+          />
+          <ToolBarBtn
+            label={
+              isExporting ? (
+                <span className="size-5 block animate-spin rounded-full border-2 border-current border-t-transparent" />
+              ) : (
+                <FiDownload className="size-5" />
+              )
+            }
+            onBtnClick={() => handleExport()}
+            disabled={isExporting || history.length === 0}
+            title="Export as PNG"
           />
         </div>
       </div>
 
-      <div className="relative h-130 md:h-144 aspect-4/5  ">
-        <div ref={traceContainerRef} className="absolute inset-0 z-0 border">
+      {/* Main drawing area */}
+      <div className="relative  ">
+        <div ref={traceContainerRef} className="relative w-fit h-fit">
           <Image
-            src="/images/trace-image.png"
+            src={selectedImage}
             alt="trace-image"
-            fill
-            className="object-contain"
+            width={450}
+            height={450}
+            loading='eager'
+            className="h-auto"
+          />
+          <motion.div
+            ref={paperContainerRef}
+            drag
+            dragControls={dragControls}
+            dragListener={false}
+            dragMomentum={false}
+            dragElastic={0}
+            onDragStart={() => setIsDragging(true)}
+            onDragEnd={() => setIsDragging(false)}
+            style={{ x: xVal, y: yVal }}
+            className={`absolute inset-0 z-10 ${
+              isDragging && "shadow-lg"
+            } bg-neutral-100/50 shadow-xl border border-neutral-400`}
+          >
+            <div className="pointer-events-none text-[#1a1a1a]/60 absolute transition-all duration-75 left-0 top-0 z-20 h-5 w-full border-t-2 border-transparent px-2 py-1 text-sm font-prime font-medium">
+              Paper - {isSnappedOnTarget ? "Ready To Trace" : "Loose"}
+            </div>
+            <canvas
+              ref={canvasRef}
+              className={`absolute inset-0 block w-full h-full rounded-sm shadow-inner touch-none ${
+                isDragArea
+                  ? "cursor-grab active:cursor-grabbing"
+                  : "cursor-crosshair"
+              }`}
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={handlePointerUp}
+              onPointerLeave={handlePointerUp}
+            />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Export capture zone (hidden off-screen, rendered for html2canvas) */}
+      <div
+        ref={exportRef}
+        className="fixed left-[-99999px] top-0 bg-white"
+        style={{ width: 600 }}
+      >
+        <div className="p-5 flex justify-center items-center">
+          {/* Canvas snapshot */}
+          <ExportCanvasSnapshot
+            history={history}
+            drawSmoothStroke={drawSmoothStroke}
+            canvasRef={canvasRef}
           />
         </div>
-        <motion.div
-          ref={paperContainerRef}
-          drag
-          dragControls={dragControls}
-          dragListener={false}
-          dragMomentum={false}
-          dragElastic={0}
-          onDragStart={() => {
-            setIsDragging(true);
-          }}
-          onDragEnd={() => {
-            setIsDragging(false);
-          }}
-          style={{ x, y }}
-          className={`absolute inset-0 z-10 ${isDragging ? "shadow-lg" : "shadow-sm"} bg-gray-100/50`}
-        >
-          <div className="pointer-events-none absolute transition-all duration-75 left-0 top-0 z-20 h-5  w-full border-t-2 border-transparent px-2 py-1 text-sm font-prime font-medium">
-            Paper - {isSnappedOnTarget ? "Ready To Trace" : "Loose"}
+
+        {/* section below canvas */}
+        <div className="px-6 pb-5 border-neutral-200 font-prime">
+          <p className="text-base font-semibold text-neutral-800 mb-1">
+            SHEET 404 - Paper Trace Drawing
+          </p>
+          <p className="text-sm text-neutral-600 whitespace-pre-wrap">
+            To create visit https://sakthi-portfolio-mauve.vercel.app/404
+          </p>
+          <div className="mt-3 text-SM text-neutral-500 pt-2 border-t border-neutral-100 flex justify-between items-center">
+            <span>
+              {new Date().toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </span>
+            <span>Paper Trace</span>
           </div>
-          <canvas
-            ref={canvasRef}
-            className={`absolute inset-0  mix-blend-multiply block w-full h-full rounded-sm shadow-inner touch-none ${isDragArea ? "cursor-grab active:cursor-grabbing" : "cursor-crosshair"}`}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
-            onPointerCancel={handlePointerUp}
-            onPointerLeave={handlePointerUp}
-          />
-        </motion.div>
+        </div>
       </div>
     </div>
+  );
+};
+
+// Renders a static canvas clone for html2canvas export
+const ExportCanvasSnapshot = ({
+  history,
+  drawSmoothStroke,
+  canvasRef,
+}: {
+  history: Stroke[];
+  drawSmoothStroke: (ctx: CanvasRenderingContext2D, stroke: Stroke) => void;
+  canvasRef: React.RefObject<HTMLCanvasElement | null>;
+}) => {
+  const exportCanvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const sourceCanvas = canvasRef.current;
+    const exportCanvas = exportCanvasRef.current;
+    if (!sourceCanvas || !exportCanvas) return;
+
+    const sourceRect = sourceCanvas.getBoundingClientRect();
+    const exportWidth = 600;
+    const aspectRatio = sourceRect.height / sourceRect.width;
+    const exportHeight = exportWidth * aspectRatio;
+
+    exportCanvas.width = exportWidth;
+    exportCanvas.height = exportHeight;
+
+    const ctx = exportCanvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, exportWidth, exportHeight);
+
+    // Scale strokes to fit export dimensions
+    const scaleX = exportWidth / sourceCanvas.width;
+    const scaleY = exportHeight / sourceCanvas.height;
+
+    history.forEach((stroke) => {
+      const scaledStroke: Stroke = {
+        color: stroke.color,
+        points: stroke.points.map((p) => ({
+          ...p,
+          x: p.x * scaleX,
+          y: p.y * scaleY,
+        })),
+      };
+      drawSmoothStroke(ctx, scaledStroke);
+    });
+  }, [history, drawSmoothStroke, canvasRef]);
+
+  return (
+    <canvas
+      ref={exportCanvasRef}
+      style={{ width: 550, display: "block" }}
+      className="border border-neutral-400"
+    />
   );
 };
 

@@ -43,7 +43,7 @@ const FolderUI = () => {
           >
             <div className="relative text-foreground/90 dark:text-background/90 w-[90%] sm:w-[75%] md:w-[65%] lg:w-[45%] xl:w-[35%] h-[90%] md:h-[80%]">
               <Image
-                src={"/images/project/paper.webp"}
+                src={"/images/project/paper.jpg"}
                 alt="image"
                 fill
                 className="object-fill"
@@ -97,7 +97,7 @@ const FolderUI = () => {
                 `}
             >
               <Image
-                src={"/images/project/paper.webp"}
+                src={"/images/project/paper.jpg"}
                 alt="image"
                 fill
                 className="object-fill"

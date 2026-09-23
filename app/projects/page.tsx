@@ -1,7 +1,14 @@
-"use client";
 import ProjectSection from "@/components/projects/ProjectSection";
 import StampStack from "@/components/projects/StampStack";
 import FolderUI from "@/components/projects/FolderUI";
+import { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Explore selected frontend projects, websites, applications, and interactive experiences built with Next.js, React, TypeScript, and modern web technologies.",
+};
 
 export default function ProjectPage() {
   return (
