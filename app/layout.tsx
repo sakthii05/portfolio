@@ -9,6 +9,7 @@ import "./globals.css";
 import { ThemeProviders } from "@/components/common/ThemeProviders";
 import PageTransitionWrapper from "@/components/common/PageTransitionWrapper";
 import Layout from "@/components/common/Layout";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Sora({
   variable: "--font-geist-sans",
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={`${geistSans.variable} ${prime.variable} ${serif.variable} ${caveat.variable} h-full antialiased bg-background scrollbar-hide `}
     >
+      <Analytics />
       <body>
         <ThemeProviders>
           <div className="noise-overlay"></div>
