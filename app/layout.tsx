@@ -35,7 +35,8 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   title: "Sakthivel | Frontend developer",
-  description: "",
+  description:
+    "Explore my portfolio featuring modern web experiences, interactive interfaces, creative projects, and frontend development expertise.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

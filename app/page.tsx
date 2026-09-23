@@ -4,6 +4,7 @@ import FluidDistortionEffect from "@/components/home/FluidDistortionEffect";
 import { Suspense } from "react";
 import FrontLayerContent from "@/components/home/FrontLayerContent";
 import { useThemeMode } from "@/hooks/useThemeMode";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const {isDark} = useThemeMode();
@@ -16,7 +17,10 @@ const Home = () => {
     : "/images/portfolio/hero-day.webp";
 
   return (
-    <section
+    <motion.section
+      initial={{ opacity: 0, filter: "blur(12px)" }}
+      animate={{ opacity: 1, filter: "blur(0px)" }}
+      transition={{ duration: 0.9, ease: "easeOut" }}
       className="relative w-full h-dvh flex justify-center items-center"
     >
       {/* Front layer content */}
@@ -53,7 +57,7 @@ const Home = () => {
           </Canvas>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 export default Home;
