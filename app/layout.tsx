@@ -38,6 +38,36 @@ export const metadata: Metadata = {
   title: "Sakthivel | Frontend developer",
   description:
     "Explore my portfolio featuring modern web experiences, interactive interfaces, creative projects, and frontend development expertise.",
+  authors: [{ name: "Sakthivel" }],
+  creator: "Sakthivel",
+  publisher: "Sakthivel",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Sakthivel | Frontend developer",
+    description:
+      "Explore my portfolio featuring modern web experiences, interactive interfaces, creative projects, and frontend development expertise.",
+    url: "https://sakthi-portfolio-mauve.vercel.app/",
+    type: "website",
+    siteName: "Sakthivel-Portfolio",
+    images: [
+      {
+        url: "/images/og-image.webp",
+        width: 1200,
+        height: 630,
+        alt: "Portfolio Banner",
+      },
+    ],
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sakthivel | Frontend developer",
+    description:
+      "Explore my portfolio featuring modern web experiences, interactive interfaces, creative projects, and frontend development expertise.",
+    images: ["/images/og-image.webp"],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
