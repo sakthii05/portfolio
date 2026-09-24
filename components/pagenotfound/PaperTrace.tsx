@@ -146,19 +146,26 @@ const PaperTrace = () => {
   );
 
   // Init canvas resolution + redraw on resize
-  useEffect(() => {
-    const initCanvas = () => {
-      if (canvasRef.current) {
-        const rect = canvasRef.current.getBoundingClientRect();
-        canvasRef.current.width = rect.width;
-        canvasRef.current.height = rect.height;
-        redrawCanvas(historyRef.current);
-      }
-    };
-    initCanvas();
-    window.addEventListener("resize", initCanvas);
-    return () => window.removeEventListener("resize", initCanvas);
-  }, [redrawCanvas]);
+useEffect(() => {
+  const canvas = canvasRef.current;
+  if (!canvas) return;
+  const handleResize = () => {
+    const rect = canvas.getBoundingClientRect();
+    if (canvas.width !== rect.width || canvas.height !== rect.height) {
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      redrawCanvas(historyRef.current);
+    }
+  };
+  handleResize();
+  const resizeObserver = new ResizeObserver(() => {
+    handleResize();
+  });
+  resizeObserver.observe(canvas);
+  return () => {
+    resizeObserver.disconnect();
+  };
+}, [redrawCanvas]);
 
   // ------- Drawing handlers -------
 
