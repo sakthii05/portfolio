@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { FaPlay, FaPause } from "react-icons/fa6";
 import { LuLoader } from "react-icons/lu";
 
 interface PreviewVideoProps extends React.VideoHTMLAttributes<HTMLVideoElement> {

@@ -19,14 +19,14 @@ export const PlaygroundCard: React.FC<PlaygroundCardProps> = ({ item }) => {
        hover:border-foreground/25 hover:shadow-xs flex flex-col justify-between gap-2"
     >
       <div>
-        <div className="aspect-video w-full bg-background  relative ">
+        <div className="aspect-video w-full bg-background  relative rounded-xl">
           <div className=" absolute inset-0 z-10 inset-shadow-black/50  inset-shadow-sm rounded-xl pointer-events-none"></div>
           {item.previewSrc.type === "Img" ? (
             <FadeImage
               src={item.previewSrc.src}
               fill
               alt={item.title}
-              className="object-contain rounded-xl "
+              className="object-cover rounded-xl "
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw "
             />
           ) : (
