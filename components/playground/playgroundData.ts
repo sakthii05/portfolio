@@ -13,14 +13,27 @@ export interface PlaygroundItem {
 }
 
 export const playgroundTabs: { id: PlaygroundCategory; label: string; count: number }[] = [
-  // { id: "hero", label: "Hero", count: 0 },
+  { id: "hero", label: "Hero", count: 1 },
   { id: "component", label: "Components", count: 3 },
   { id: "ai", label: "AI Apps", count: 2 },
 ];
 
 export const playgroundItems: PlaygroundItem[] = [
+  //hero
+   {
+    id: "smoke-reveal",
+    title: "Smoke Reveal",
+    category: "hero",
+    tag:{lable:"Latest",show:true},
+    description:
+      "A cursor-reactive smoke effect built with Three.js and React Three Fiber, creating a smooth, fluid trail that follows mouse movement with dynamic distortion and fading particles.",
+    technologies: ["Three.js","R3F"],
+    liveLink:"https://playground-demo-dun.vercel.app/hero/msd",
+    codeLink:"https://github.com/sakthii05/playground-demo/blob/main/src/app/hero/msd/page.tsx",
+    previewSrc:{type:'Video',src:"/video/msd-hero.webm"},
+  },
   //UI components
-  {
+{
     id: "drawing",
     title: "Trace Drawing",
     category: "component",
