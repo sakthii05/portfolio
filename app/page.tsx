@@ -10,7 +10,7 @@ const Home = () => {
   const {isDark} = useThemeMode();
 
   const frontImage = isDark
-    ? "/images/portfolio/hero-night-sketch.webp"
+    ? "/images/portfolio/hero-night-sketch1.webp"
     : "/images/portfolio/hero-day-sketch.webp";
   const backImage = isDark
     ? "/images/portfolio/hero-night.webp"

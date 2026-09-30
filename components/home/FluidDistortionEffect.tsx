@@ -8,7 +8,7 @@ import { useTexture } from "@react-three/drei";
 // Preload all portfolio reveal textures so page transitions and theme changes are instantaneous
 
 useTexture.preload([
-  "/images/portfolio/hero-night-sketch.webp",
+  "/images/portfolio/hero-night-sketch1.webp",
   "/images/portfolio/hero-day-sketch.webp",
   "/images/portfolio/hero-night.webp",
   "/images/portfolio/hero-day.webp",
