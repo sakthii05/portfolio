@@ -33,7 +33,7 @@ export const timelineData = [
     company: "Self-employed",
     companyLogo: "/images/experience/profile-logo.webp",
     description:
-      "As a self-employed freelancer, I've worked with clients across different industries, developing project proposals tailored to their needs and bringing those ideas into working products. Along the way, I've completed 4-5 projects for different clients while exploring AI tools and building side projects to experiment with new ideas and technologies.",
+      "As a self-employed freelancer, I've worked with clients, developing project proposals tailored to their needs and bringing those ideas into working products. Along the way, Focused on AI Engineering: learning Python, integrating LLM APIs, and building AI-powered tools on top of my React/Next.js foundation.",
     project:{link:"/projects#freelance", show:true},
   },
   {

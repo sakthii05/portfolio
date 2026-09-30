@@ -10,7 +10,7 @@ import {
 } from "@/components/playground/playgroundData";
 
 export default function PlayGroundPage() {
-  const [activeTab, setActiveTab] = useState<PlaygroundCategory>("component");
+  const [activeTab, setActiveTab] = useState<PlaygroundCategory>("ai");
 
   const filteredItems = playgroundItems.filter(
     (item) => item.category === activeTab,
