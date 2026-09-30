@@ -63,7 +63,7 @@ export const PlaygroundTabs: React.FC<PlaygroundTabsProps> = ({
               <span className="relative z-10 flex items-center gap-1.5">
                 <span>{tab.label}</span>
                 <span
-                  className={`text-[10px] opacity-70 font-sans ${
+                  className={`text-[10px] opacity-70 font-sans whitespace-nowrap ${
                     isActive ? "text-background" : "text-muted-foreground"
                   }`}
                 >

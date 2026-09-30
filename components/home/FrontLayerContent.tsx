@@ -19,21 +19,22 @@ const FrontLayerContent = () => {
       <div className="absolute h-40 w-full  bg-linear-to-t from-background to-transparent bottom-0 "></div>
       <div className="hidden md:block absolute h-full w-60  bg-linear-to-r  from-25% from-background  to-transparent -left-1 "></div>
       <div className="hidden md:block absolute h-full w-60  bg-linear-to-l  from-25% from-background to-transparent -right-1  "></div>
-      <div className="absolute pt-15 md:pt-20 md:px-20 px-5 space-y-4">
+      <div className="absolute pt-15 md:pt-20 md:px-20 px-5 space-y-2 md:space-y-4">
         <h2 className=" text-3xl md:text-3xl font-semibold font-mono ">
           AI Frontend Developer{" "}
-          <span className="font-normal ml-2 text-xs border border-muted-foreground rounded-full px-3 py-1 font-sans">
-            Open to work
-          </span>
         </h2>
-        <p className="w-[90%] md:w-[50%] text-base text-foreground/70  leading-relaxed">
+
+        <p className="w-[90%] md:w-[50%] text-sm sm:text-base text-foreground/80  leading-relaxed">
           Hey, I'm{" "}
           <span className="font-caveat md:text-xl text-foreground tracking-wide">
             Sakthivel
           </span>
           . I design and build interfaces where creativity meets serious
           frontend engineering and I'm actively transitioning into AI
-          Engineering connecting LLM APIs to real frontends.
+          Engineering connecting LLM APIs to real frontends.{" "}
+          <span className="font-medium w-fit  text-xs text-foreground px-2 py-1 font-sans">
+           {"( Open to work )"}
+          </span>
         </p>
         <div className="pointer-events-auto flex space-x-4 items-center">
           <CTAButton />
