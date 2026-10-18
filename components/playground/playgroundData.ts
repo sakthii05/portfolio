@@ -14,17 +14,29 @@ export interface PlaygroundItem {
 
 export const playgroundTabs: { id: PlaygroundCategory; label: string; count: number }[] = [
    { id: "ai", label: "AI Apps", count: 2 },
-  { id: "hero", label: "Hero", count: 1 },
+  { id: "hero", label: "Hero", count: 2 },
   { id: "component", label: "Components", count: 3 },
  ];
 
 export const playgroundItems: PlaygroundItem[] = [
   //hero
+ {
+    id: "pc-anatomy",
+    title: "PC Anatomy",
+    category: "hero",
+    tag:{lable:"Latest",show:true},
+    description:
+      "Explore PC components in interactive 3D, customize hardware specs, and visualize performance under different workloads.",
+    technologies: ["Three.js","R3F"],
+    liveLink:"https://playground-demo-dun.vercel.app/pc-anatomy",
+    codeLink:"https://github.com/sakthii05/playground-demo/blob/main/src/app/pc-anatomy/page.tsx",
+    previewSrc:{type:'Img',src:"https://ik.imagekit.io/sakthidev/portfolio/hero/pc-anatomy.png?updatedAt=1792310187493"},
+  },
    {
     id: "smoke-reveal",
     title: "Smoke Reveal",
     category: "hero",
-    tag:{lable:"Latest",show:true},
+    tag:{lable:"Latest",show:false},
     description:
       "A cursor-reactive smoke effect built with Three.js and React Three Fiber, creating a smooth, fluid trail that follows mouse movement with dynamic distortion and fading particles.",
     technologies: ["Three.js","R3F"],
@@ -32,6 +44,7 @@ export const playgroundItems: PlaygroundItem[] = [
     codeLink:"https://github.com/sakthii05/playground-demo/blob/main/src/app/hero/msd/page.tsx",
     previewSrc:{type:'Video',src:"/video/msd-hero.webm"},
   },
+ 
   //UI components
 {
     id: "drawing",
